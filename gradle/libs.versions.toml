@@ -1,0 +1,7 @@
+[versions]
+androidGradlePlugin = "7.2.1"
+kotlin = "1.7.10"
+
+[libraries]
+android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin"}
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin"}
