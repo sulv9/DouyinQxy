@@ -49,7 +49,7 @@ internal fun Project.dependARouter() {
 /**
  * room基础依赖库
  */
-internal fun Project.dependRoom() {
+fun Project.dependRoom() {
     dependencies {
         "implementation"(Versions.`room-runtime`)
         "implementation"(Versions.`room-ktx`)
