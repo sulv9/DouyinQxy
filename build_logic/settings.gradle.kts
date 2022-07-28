@@ -14,5 +14,5 @@ dependencyResolutionManagement {
         }
     }
 }
-
+rootProject.name = "build_logic"
 include(":convention")

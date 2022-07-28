@@ -26,9 +26,12 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build_logic" />
             <option value="$PROJECT_DIR$/build_logic/convention" />
+            <option value="$PROJECT_DIR$/lib_account" />
+            <option value="$PROJECT_DIR$/lib_account/api_account" />
             <option value="$PROJECT_DIR$/lib_base" />
             <option value="$PROJECT_DIR$/lib_common" />
             <option value="$PROJECT_DIR$/module_personal" />
+            <option value="$PROJECT_DIR$/module_rank" />
           </set>
         </option>
       </GradleProjectSettings>

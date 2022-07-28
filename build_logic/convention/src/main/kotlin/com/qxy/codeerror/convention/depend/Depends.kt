@@ -83,3 +83,7 @@ internal fun Project.dependLibBase() {
         "implementation"(project(":lib_base"))
     }
 }
+
+fun Project.dependApiAccount() {
+    dependApi(ApiPath.api_account)
+}

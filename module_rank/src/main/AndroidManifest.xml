@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.qxy.module.rank">
+
+    <application>
+        <activity
+            android:name=".RankActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

@@ -1,11 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":lib_base")
-
-
-include(":lib_common")
-
-
 pluginManagement {
     includeBuild("build_logic")
     repositories {
@@ -29,5 +23,10 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "DouyinQxy"
-include (":app")
-include (":module_personal")
+include(":app")
+include(":module_personal")
+include(":module_rank")
+include(":lib_base")
+include(":lib_common")
+include(":lib_account")
+include(":lib_account:api_account")
