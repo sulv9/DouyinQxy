@@ -3,6 +3,7 @@
 package com.qxy.codeerror.convention.project.base
 
 import com.android.build.api.dsl.*
+import com.qxy.codeerror.convention.depend.*
 import com.qxy.codeerror.convention.depend.dependARouter
 import com.qxy.codeerror.convention.depend.dependAndroidBase
 import com.qxy.codeerror.convention.depend.dependAndroidKtx
@@ -19,7 +20,6 @@ import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 /**
  * Android所有工程的统一配置基类，主要实现以下几个功能：
  * 1. 自动依赖与工程同文件夹下的其他api或lib模块
- * 2. 应用
  * 2. 添加所有工程都需要依赖的库(如ktx)
  * 3. 对Android闭包部分进行统一配置
  */
@@ -62,8 +62,12 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
         dependAndroidBase()
         // 依赖Android-Ktx
         dependAndroidKtx()
+        // 依赖Hilt
+        dependHilt()
         // 依赖ARouter路由
         dependARouter()
+        // 依赖抖音SDK
+        dependDouYin()
 
         super.initProjectInBase()
 

@@ -1,7 +1,10 @@
 package com.qxy.codeerror.convention.depend
 
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
 
 /**
  * 依赖Android最基础的库
@@ -86,4 +89,26 @@ internal fun Project.dependLibBase() {
 
 fun Project.dependApiAccount() {
     dependApi(ApiPath.api_account)
+}
+
+@Suppress("UnstableApiUsage")
+val Project.hilt_version get() =
+    extensions.getByType<VersionCatalogsExtension>()
+        .named("libs")
+        .findVersion("hilt")
+        .get().toString()
+
+fun Project.dependHilt() {
+    apply(plugin = "dagger.hilt.android.plugin")
+    dependencies {
+        "implementation"("com.google.dagger:hilt-android:${hilt_version}")
+        "kapt"("com.google.dagger:hilt-android-compiler:${hilt_version}")
+    }
+}
+
+fun Project.dependDouYin() {
+    dependencies {
+        "implementation"(Libs.`bytedance-opensdk-china-external`)
+        "implementation"(Libs.`bytedance-opensdk-common`)
+    }
 }
