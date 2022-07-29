@@ -64,6 +64,7 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
         dependAndroidKtx()
         // 依赖ARouter路由
         dependARouter()
+
         super.initProjectInBase()
 
         // kapt扩展配置

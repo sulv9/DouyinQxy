@@ -5,7 +5,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 
 /**
- * 统一配置Api路径
+ * 统一配置Api路径，以检测api模块的实现模块
  * api路径示例为：
  * val api_test = ":lib_test:api_test".path
  */

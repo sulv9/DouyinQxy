@@ -4,12 +4,12 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 /**
- * 依赖Versions最基础的库
+ * 依赖Android最基础的库
  */
 internal fun Project.dependAndroidBase() {
     dependencies {
-        "implementation"(Versions.appcompat)
-        "implementation"(Versions.constraintlayout)
+        "implementation"(Libs.appcompat)
+        "implementation"(Libs.constraintLayout)
     }
 }
 
@@ -18,9 +18,9 @@ internal fun Project.dependAndroidBase() {
  */
 internal fun Project.dependAndroidUI() {
     dependencies {
-        "implementation"(Versions.recyclerview)
-        "implementation"(Versions.viewpager2)
-        "implementation"(Versions.material)
+        "implementation"(Libs.recyclerview)
+        "implementation"(Libs.viewpager2)
+        "implementation"(Libs.material)
     }
 }
 
@@ -29,10 +29,10 @@ internal fun Project.dependAndroidUI() {
  */
 internal fun Project.dependAndroidKtx() {
     dependencies {
-        "implementation"(Versions.`core-ktx`)
-        "implementation"(Versions.`collection-ktx`)
-        "implementation"(Versions.`fragment-ktx`)
-        "implementation"(Versions.`activity-ktx`)
+        "implementation"(Libs.`core-ktx`)
+        "implementation"(Libs.`collection-ktx`)
+        "implementation"(Libs.`fragment-ktx`)
+        "implementation"(Libs.`activity-ktx`)
     }
 }
 
@@ -41,8 +41,8 @@ internal fun Project.dependAndroidKtx() {
  */
 internal fun Project.dependARouter() {
     dependencies {
-        "implementation"(Versions.`arouter-api`)
-        "kapt"(Versions.`arouter-compiler`)
+        "implementation"(Libs.`arouter-api`)
+        "kapt"(Libs.`arouter-compiler`)
     }
 }
 
@@ -51,9 +51,9 @@ internal fun Project.dependARouter() {
  */
 fun Project.dependRoom() {
     dependencies {
-        "implementation"(Versions.`room-runtime`)
-        "implementation"(Versions.`room-ktx`)
-        "kapt"(Versions.`room-compiler`)
+        "implementation"(Libs.`room-runtime`)
+        "implementation"(Libs.`room-ktx`)
+        "kapt"(Libs.`room-compiler`)
     }
 }
 
@@ -62,10 +62,10 @@ fun Project.dependRoom() {
 */
 internal fun Project.dependLifecycleKtx() {
     dependencies {
-        "implementation"(Versions.`viewmodel-ktx`)
-        "implementation"(Versions.`livedata-ktx`)
-        "implementation"(Versions.`runtime-ktx`)
-        "kapt"(Versions.`lifecycle-compiler`)
+        "implementation"(Libs.`viewmodel-ktx`)
+        "implementation"(Libs.`livedata-ktx`)
+        "implementation"(Libs.`runtime-ktx`)
+        "kapt"(Libs.`lifecycle-compiler`)
     }
 }
 
