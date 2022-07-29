@@ -1,5 +1,6 @@
 package com.qxy.codeerror.convention.depend
 
+@Suppress("ObjectPropertyName", "SpellCheckingInspection")
 object Libs {
     // 基础库
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
@@ -56,4 +57,8 @@ object Libs {
 
     // palette
     const val palette = "androidx.palette:palette:${Versions.palette}"
+
+    // 抖音SDK
+    const val `bytedance-opensdk-china-external` = "com.bytedance.ies.ugc.aweme:opensdk-china-external:${Versions.douYinSdk}"
+    const val `bytedance-opensdk-common` = "com.bytedance.ies.ugc.aweme:opensdk-common:${Versions.douYinSdk}"
 }

@@ -3,7 +3,7 @@ package com.qxy.codeerror.convention.depend
 @Suppress("ObjectPropertyName", "SpellCheckingInspection")
 object Versions {
     const val appcompat = "1.4.2"
-    const val constraintLayout = "1.4.2"
+    const val constraintLayout = "2.1.4"
     const val recyclerview = "1.2.1"
     const val viewpager2 = "1.0.0"
     const val material = "1.6.1"
@@ -16,4 +16,5 @@ object Versions {
     const val lifecycle = "2.5.0"
     const val archTest = "2.1.0"
     const val palette = "1.0.0"
+    const val douYinSdk = "0.1.9.0"
 }
