@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.qxy.lib.base.util.GenericUtil
 
+/**
+ * 封装了binding的Activity基类
+ */
 abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
 
     /**
