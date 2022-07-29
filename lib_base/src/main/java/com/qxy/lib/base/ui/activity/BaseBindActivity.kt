@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
 import com.qxy.lib.base.util.GenericUtil
 
+/**
+ * 封装了binding的Activity基类
+ */
 abstract class BaseBindActivity<VB : ViewBinding> : BaseActivity() {
 
     /**

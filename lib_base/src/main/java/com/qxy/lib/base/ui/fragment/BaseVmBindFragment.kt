@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.qxy.lib.base.util.GenericUtil
 
+/**
+ * 封装了viewModel的Activity基类
+ */
 abstract class BaseVmBindFragment<VM: ViewModel, VB: ViewBinding>: BaseBindFragment<VB>() {
 
     protected val mViewModelFactory: ViewModelProvider.Factory? = null

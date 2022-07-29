@@ -4,6 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.qxy.lib.base.util.GenericUtil
 
+/**
+ * 封装了viewModel的Activity基类
+ */
 abstract class BaseVmActivity<VM : ViewModel> : BaseActivity() {
 
     protected val mViewModelFactory: ViewModelProvider.Factory? = null
