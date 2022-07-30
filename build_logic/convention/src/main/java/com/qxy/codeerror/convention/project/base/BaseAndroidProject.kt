@@ -66,8 +66,6 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
         dependHilt()
         // 依赖ARouter路由
         dependARouter()
-        // 依赖抖音SDK
-        dependDouYin()
 
         super.initProjectInBase()
 
