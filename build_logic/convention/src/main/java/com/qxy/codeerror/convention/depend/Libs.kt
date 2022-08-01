@@ -61,4 +61,26 @@ object Libs {
     // 抖音SDK
     const val `bytedance-opensdk-china-external` = "com.bytedance.ies.ugc.aweme:opensdk-china-external:${Versions.douYinSdk}"
     const val `bytedance-opensdk-common` = "com.bytedance.ies.ugc.aweme:opensdk-common:${Versions.douYinSdk}"
+
+    // 日志打印 - Timber https://github.com/JakeWharton/timber
+    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+
+    // Network - https://github.com/square/retrofit
+    const val retrofit_version = "2.9.0"
+
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val `converter-gson` = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    const val `adapter-rxjava3` = "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofit}"
+
+    const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    const val `logging-interceptor` = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
+
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
+
+    // Security - https://developer.android.com/topic/security/data?hl=zh-cn#kotlin
+    const val `security-crypto` = "androidx.security:security-crypto:${Versions.securityCrypto}"
+    // For Identity Credential APIs
+    const val `security-identity-credential` = "androidx.security:security-identity-credential:1.0.0"
+    // For App Authentication APIs
+    const val `security-app-authenticator` = "androidx.security:security-app-authenticator:1.0.0"
 }

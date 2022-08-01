@@ -112,3 +112,20 @@ fun Project.dependDouYin() {
         "implementation"(Libs.`bytedance-opensdk-common`)
     }
 }
+
+fun Project.dependNetwork() {
+    dependencies {
+        "implementation"(Libs.retrofit)
+        "implementation"(Libs.okhttp)
+        "implementation"(Libs.gson)
+    }
+}
+
+fun Project.dependSecurity() {
+    dependencies {
+        "implementation"(Libs.`security-crypto`)
+//        "implementation"(Libs.`security-identity-credential`)
+//        "implementation"(Libs.`security-app-authenticator`)
+//        "androidTestImplementation"(Libs.`security-app-authenticator`)
+    }
+}

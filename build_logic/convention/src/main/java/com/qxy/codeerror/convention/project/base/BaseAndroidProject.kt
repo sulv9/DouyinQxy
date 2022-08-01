@@ -47,7 +47,6 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
         dependencies {
             if (isDependChildModule()) {
                 val allProjectsName = rootProject.subprojects.map { it.name }
-
                 projectDir.listFiles()?.filter {
                     it.isDirectory // 属于文件夹
                             && "(lib_.+)|(api_.+)".toRegex().matches(it.name) // 以lib或api开头
@@ -56,6 +55,9 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
                     "implementation"(project(":${name}:${it.name}"))
                 }
             }
+
+            // 依赖日志打印Timber
+            "implementation"(Libs.timber)
         }
 
         // 依赖Android基础库
