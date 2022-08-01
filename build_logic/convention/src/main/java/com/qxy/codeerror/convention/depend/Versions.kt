@@ -17,4 +17,9 @@ object Versions {
     const val archTest = "2.1.0"
     const val palette = "1.0.0"
     const val douYinSdk = "0.1.9.0"
+    const val timber = "5.0.1"
+    const val gson = "2.9.0"
+    const val retrofit = "2.9.0"
+    const val okHttp = "4.10.0"
+    const val securityCrypto = "1.1.0-alpha03"
 }

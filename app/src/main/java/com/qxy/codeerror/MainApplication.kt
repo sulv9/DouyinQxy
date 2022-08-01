@@ -5,6 +5,7 @@ import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.DouYinOpenConfig
 import com.qxy.lib.base.BaseApp
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 
 /**
  * HiltApp必须依赖所有使用hilt的模块
@@ -15,5 +16,8 @@ class MainApplication : BaseApp() {
         super.onCreate()
         ARouter.init(this)
         DouYinOpenApiFactory.init(DouYinOpenConfig(BuildConfig.DOUYIN_KEY))
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }
