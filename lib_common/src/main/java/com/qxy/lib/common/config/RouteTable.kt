@@ -8,5 +8,5 @@ package com.qxy.lib.common.config
  */
 object RouteTable {
     // account模块
-    const val ACCOUNT_SERVICE = "/account/ser"
+    const val ACCOUNT_SERVICE = "/account/service"
 }

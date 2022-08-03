@@ -14,12 +14,12 @@ import timber.log.Timber
 class MainApplication : BaseApp() {
     override fun onCreate() {
         super.onCreate()
-        ARouter.init(this)
         DouYinOpenApiFactory.init(DouYinOpenConfig(BuildConfig.DOUYIN_KEY))
         if (BuildConfig.DEBUG) {
             ARouter.openLog()
             ARouter.openDebug()
             Timber.plant(Timber.DebugTree())
         }
+        ARouter.init(this)
     }
 }
