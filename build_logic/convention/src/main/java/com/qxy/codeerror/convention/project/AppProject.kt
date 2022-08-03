@@ -3,7 +3,6 @@
 package com.qxy.codeerror.convention.project
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.qxy.codeerror.convention.depend.dependDouYin
 import com.qxy.codeerror.convention.project.base.BaseAppProject
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtraPropertiesExtension
@@ -19,9 +18,6 @@ import org.gradle.kotlin.dsl.get
  */
 class AppProject(project: Project): BaseAppProject(project) {
     override fun initProjectInImpl() {
-        // 依赖库
-        dependDouYin()
-
         // app模块不需要依赖的模块
         val excludeModuleList = listOf<String>()
         // app需要依赖的所有子模块

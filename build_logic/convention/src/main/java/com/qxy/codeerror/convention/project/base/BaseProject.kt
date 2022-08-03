@@ -22,6 +22,6 @@ abstract class BaseProject(project: Project) : Project by project {
      * 该方法用在实现类中对项目初始化
      * 强制非抽象类重写该方法
      */
-    protected abstract open fun initProjectInImpl()
+    protected abstract fun initProjectInImpl()
 
 }

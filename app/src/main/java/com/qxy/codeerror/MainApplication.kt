@@ -17,6 +17,8 @@ class MainApplication : BaseApp() {
         ARouter.init(this)
         DouYinOpenApiFactory.init(DouYinOpenConfig(BuildConfig.DOUYIN_KEY))
         if (BuildConfig.DEBUG) {
+            ARouter.openLog()
+            ARouter.openDebug()
             Timber.plant(Timber.DebugTree())
         }
     }
