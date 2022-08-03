@@ -33,13 +33,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".douyinapi.DouYinEntryActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity="com.qxy.codeerror"
-            android:exported="true">
-        </activity>
-
     </application>
 
 </manifest>

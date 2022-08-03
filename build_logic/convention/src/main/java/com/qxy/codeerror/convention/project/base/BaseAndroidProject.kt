@@ -4,13 +4,9 @@ package com.qxy.codeerror.convention.project.base
 
 import com.android.build.api.dsl.*
 import com.qxy.codeerror.convention.depend.*
-import com.qxy.codeerror.convention.depend.dependARouter
-import com.qxy.codeerror.convention.depend.dependAndroidBase
-import com.qxy.codeerror.convention.depend.dependAndroidKtx
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
@@ -66,7 +62,8 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
         dependAndroidKtx()
         // 依赖Hilt
         dependHilt()
-        // 依赖ARouter路由
+        // 依赖抖音Api
+        dependDouYin()
         dependARouter()
 
         super.initProjectInBase()

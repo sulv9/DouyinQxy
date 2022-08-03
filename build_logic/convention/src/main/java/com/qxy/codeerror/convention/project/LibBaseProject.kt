@@ -1,5 +1,6 @@
 package com.qxy.codeerror.convention.project
 
+import com.qxy.codeerror.convention.depend.dependNetwork
 import com.qxy.codeerror.convention.project.base.BaseLibProject
 import org.gradle.api.Project
 
@@ -9,5 +10,6 @@ import org.gradle.api.Project
  */
 class LibBaseProject(project: Project): BaseLibProject(project) {
     override fun initProjectInImpl() {
+        dependNetwork()
     }
 }

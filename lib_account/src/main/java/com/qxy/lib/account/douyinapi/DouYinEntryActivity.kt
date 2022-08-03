@@ -1,4 +1,4 @@
-package com.qxy.codeerror.douyinapi
+package com.qxy.lib.account.douyinapi
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +16,7 @@ class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
 
     private lateinit var mDouYinOpenApi: DouYinOpenApi
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mDouYinOpenApi = DouYinOpenApiFactory.create(this)
@@ -29,11 +30,6 @@ class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
         // 授权成功获取AuthCode
         if (CommonConstants.ModeType.SEND_AUTH_RESPONSE == resq?.type) {
             val response = resq as Authorization.Response
-            if (response.isSuccess) {
-                log { "Response Success authCode:${response.authCode} grant:${response.grantedPermissions}" }
-            } else {
-                log { "Response Fail ${response.errorMsg}" }
-            }
             finish()
         }
     }

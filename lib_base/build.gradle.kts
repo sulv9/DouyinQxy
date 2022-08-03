@@ -6,4 +6,6 @@ plugins {
 
 dependencies {
     implementation(Libs.palette)
+    implementation(Libs.`logging-interceptor`)
+    implementation(Libs.`converter-gson`)
 }
