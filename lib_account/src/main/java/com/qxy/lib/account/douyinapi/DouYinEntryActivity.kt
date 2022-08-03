@@ -9,13 +9,16 @@ import com.bytedance.sdk.open.aweme.common.model.BaseReq
 import com.bytedance.sdk.open.aweme.common.model.BaseResp
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
+import com.qxy.api.account.IAccountService
 import com.qxy.lib.base.ext.log
 import com.qxy.lib.base.ui.activity.BaseActivity
+import com.qxy.lib.base.util.ARouterUtil
 
 class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
 
     private lateinit var mDouYinOpenApi: DouYinOpenApi
 
+    private val mAccountService = ARouterUtil.getService(IAccountService::class)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,7 @@ class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
         // 授权成功获取AuthCode
         if (CommonConstants.ModeType.SEND_AUTH_RESPONSE == resq?.type) {
             val response = resq as Authorization.Response
+            mAccountService.responseLoginInfo(response)
             finish()
         }
     }
