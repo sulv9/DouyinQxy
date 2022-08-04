@@ -19,6 +19,9 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
     private var _binding: VB? = null
     protected val binding get() = _binding!!
 
+    /**
+     * 不要重写该方法
+     */
     @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater: LayoutInflater,

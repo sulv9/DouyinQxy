@@ -13,17 +13,17 @@ abstract class BaseBindActivity<VB : ViewBinding> : BaseActivity() {
     /**
      * 在[setContentView]方法前执行的方法
      */
-    protected fun onBeforeSetContentView() {}
+    protected open fun onBeforeSetContentView() {}
 
     /**
      * 初始化view
      */
-    protected fun initView() {}
+    protected open fun initView() {}
 
     /**
      * 初始化data
      */
-    protected fun initData() {}
+    protected open fun initData() {}
 
     /**
      * 利用反射初始化binding
@@ -35,13 +35,13 @@ abstract class BaseBindActivity<VB : ViewBinding> : BaseActivity() {
         method.invoke(null, layoutInflater) as VB
     }
 
+    /**
+     * 不要重写该方法
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         onBeforeSetContentView()
-
         setContentView(binding.root)
-
         initView()
         initData()
     }
