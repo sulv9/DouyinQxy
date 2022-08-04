@@ -30,6 +30,8 @@
             <option value="$PROJECT_DIR$/lib_account/api_account" />
             <option value="$PROJECT_DIR$/lib_base" />
             <option value="$PROJECT_DIR$/lib_common" />
+            <option value="$PROJECT_DIR$/module_login" />
+            <option value="$PROJECT_DIR$/module_main" />
             <option value="$PROJECT_DIR$/module_personal" />
             <option value="$PROJECT_DIR$/module_rank" />
           </set>

@@ -3,7 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/KotlinProject/DouyinQxy/app/src/main/res/layout/activity_main.xml" value="0.25885416666666666" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/lib_common/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.16" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/lib_common/src/main/res/drawable/ic_launcher_background.xml" value="0.16" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/lib_common/src/main/res/drawable/selector_radio_button_text.xml" value="0.1705" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_login/src/main/res/layout/activity_login.xml" value="0.24427083333333333" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_main/src/main/res/drawable/selector_bg_main_change_rnk.xml" value="0.16" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_main/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/activity_rank.xml" value="0.4088541666666667" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/fragment_rank.xml" value="0.264" />
       </map>
     </option>
   </component>

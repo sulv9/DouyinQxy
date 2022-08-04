@@ -1,5 +1,6 @@
 package com.qxy.codeerror.convention.project
 
+import com.qxy.codeerror.convention.depend.dependAndroidUI
 import com.qxy.codeerror.convention.depend.dependLibBase
 import com.qxy.codeerror.convention.project.base.BaseLibProject
 import org.gradle.api.Project
@@ -11,5 +12,6 @@ import org.gradle.api.Project
 class LibCommonProject(project: Project): BaseLibProject(project) {
     override fun initProjectInImpl() {
         dependLibBase()
+        dependAndroidUI()
     }
 }

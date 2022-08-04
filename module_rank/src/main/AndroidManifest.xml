@@ -3,9 +3,6 @@
     package="com.qxy.module.rank">
 
     <application>
-        <activity
-            android:name=".RankActivity"
-            android:exported="true" />
     </application>
 
 </manifest>

@@ -9,4 +9,7 @@ package com.qxy.lib.common.config
 object RouteTable {
     // account模块
     const val ACCOUNT_SERVICE = "/account/service"
+
+    // rank模块
+    const val RANK_ENTRY = "/rank/entry"
 }

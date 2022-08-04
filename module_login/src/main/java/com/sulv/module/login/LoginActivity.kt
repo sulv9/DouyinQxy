@@ -1,11 +1,11 @@
-package com.qxy.module.rank
+package com.sulv.module.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class RankActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rank)
+        setContentView(R.layout.activity_login)
     }
 }
