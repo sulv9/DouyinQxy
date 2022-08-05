@@ -1,11 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rank_cl_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello Rank"/>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/rank_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:fitsSystemWindows="true">
 
-</FrameLayout>
+        <com.qxy.lib.common.widget.CollapsibleToolbar
+            android:id="@+id/rank_ctl_top_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:minHeight="50dp"
+            app:contentScrim="@android:color/transparent"
+            app:layoutDescription="@xml/fragment_rank_scene"
+            app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed">
+
+            <ImageView
+                android:id="@+id/rank_iv_top_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:src="@drawable/bg_dou_yin_movie_rank"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed" />
+
+            <TextView
+                android:id="@+id/rank_tv_change_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/selector_view_with_gray_border"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:text="@string/main_tv_text_change_rank"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </com.qxy.lib.common.widget.CollapsibleToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rank_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

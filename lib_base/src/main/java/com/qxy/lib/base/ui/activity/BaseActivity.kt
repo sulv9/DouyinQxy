@@ -52,7 +52,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
         if (isStatusBarTransparent) {
             window.statusBarColor = Color.TRANSPARENT
-            WindowCompat.setDecorFitsSystemWindows(window, false)
         }
     }
 

@@ -1,5 +1,4 @@
 <resources>
     <string name="main_bottom_rank_text">榜单</string>
     <string name="main_bottom_personal_text">我</string>
-    <string name="main_tv_text_change_rank">切换榜单</string>
 </resources>

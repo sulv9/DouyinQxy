@@ -18,5 +18,6 @@ class ModuleProject(project: Project): BaseLibProject(project) {
         dependLibBase()
         dependAndroidUI()
         dependLifecycleKtx()
+        dependApiAccount()
     }
 }
