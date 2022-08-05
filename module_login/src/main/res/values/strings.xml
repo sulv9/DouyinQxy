@@ -1,2 +1,8 @@
 <resources>
+    <string name="login_tv_text_app_name">抖音 极速版</string>
+    <string name="login_tv_text_welcome_back">欢迎回来</string>
+    <string name="login_tv_text_not_login">您还未登录，请先登录</string>
+    <string name="login_tv_text_go_login">前往登录</string>
+    <string name="login_tv_text_login_success">登录成功</string>
+    <string name="login_tv_text_login_fail">登录失败</string>
 </resources>

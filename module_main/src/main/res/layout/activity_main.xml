@@ -1,93 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_fcv"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:fitsSystemWindows="true">
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-        <ImageView
-            android:id="@+id/main_iv_bg_rank"
-            android:layout_width="match_parent"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_divider_bottom" />
+
+    <RadioGroup
+        android:id="@+id/main_bottom_rg"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/main_bottom_rank"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_dou_yin_movie_rank" />
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="@string/main_bottom_rank_text"
+            android:textColor="@drawable/selector_radio_button_text"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/main_tv_change_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/selector_view_with_border"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="8dp"
-            android:text="@string/main_tv_text_change_rank"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+        <RadioButton
+            android:id="@+id/main_bottom_personal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/main_bottom_personal_text"
+            android:textColor="@drawable/selector_radio_button_text"
+            android:textSize="18sp" />
 
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </RadioGroup>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+</LinearLayout>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/main_fcv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_divider_bottom" />
-
-        <RadioGroup
-            android:id="@+id/main_bottom_rg"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/white"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/main_bottom_rank"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:button="@null"
-                android:checked="true"
-                android:gravity="center"
-                android:text="@string/main_bottom_rank_text"
-                android:textColor="@drawable/selector_radio_button_text"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <RadioButton
-                android:id="@+id/main_bottom_personal"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/main_bottom_personal_text"
-                android:textColor="@drawable/selector_radio_button_text"
-                android:textSize="18sp" />
-
-        </RadioGroup>
-
-    </LinearLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>

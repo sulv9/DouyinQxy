@@ -12,4 +12,10 @@ object RouteTable {
 
     // rank模块
     const val RANK_ENTRY = "/rank/entry"
+
+    // login模块
+    const val LOGIN_ENTRY = "/login/entry"
+
+    // personal模块
+    const val PERSONAL_ENTRY = "/personal/entry"
 }

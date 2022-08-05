@@ -3,9 +3,6 @@
     package="com.qxy.module.personal">
 
     <application>
-        <activity
-            android:name="com.qxy.module.personal.PersonalActivity"
-            android:exported="true" />
     </application>
 
 </manifest>

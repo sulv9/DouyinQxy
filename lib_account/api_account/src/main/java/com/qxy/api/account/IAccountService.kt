@@ -1,5 +1,6 @@
 package com.qxy.api.account
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.alibaba.android.arouter.facade.template.IProvider
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
@@ -7,7 +8,28 @@ import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 
 interface IAccountService : IProvider {
 
-    fun getAccountLiveData(): LiveData<LoginState>
+    /**
+     * 监听登录状态的改变
+     */
+    fun observeLoginState(
+        lifecycleOwner: LifecycleOwner,
+        listener: (liveData: LoginState) -> Unit
+    )
+
+    /**
+     * 监听当前是否需要切换Fragment
+     */
+    fun observeFragmentChange(
+        lifecycleOwner: LifecycleOwner,
+        listener: (liveData: LoginAction) -> Unit
+    )
+
+    /**
+     * 发送切换界面请求
+     * 一般指从登录成功后向主界面申请从登录界面切换到当前用户所选择的Tab界面
+     * @param action 登录行为，取值见[LoginAction]
+     */
+    fun sendChangeFragmentRequest(action: LoginAction)
 
     /**
      * 是否已登录
@@ -24,6 +46,19 @@ interface IAccountService : IProvider {
      */
     fun responseLoginInfo(response: Authorization.Response)
 
+    /**
+     * 登录行为
+     */
+    data class LoginAction(
+        // 登入
+        val logIn: Boolean = false,
+        // 登出
+        val logOut: Boolean = false
+    )
+
+    /**
+     * 登录状态
+     */
     data class LoginState(
         // 登录成功
         val isLogIn: Boolean = false,

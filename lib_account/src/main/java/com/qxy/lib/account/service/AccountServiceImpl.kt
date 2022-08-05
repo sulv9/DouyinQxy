@@ -3,6 +3,7 @@ package com.qxy.lib.account.service
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
@@ -19,6 +20,8 @@ import com.qxy.lib.common.config.RouteTable
 class AccountServiceImpl : IAccountService {
 
     private val accountLiveData = MutableLiveData<IAccountService.LoginState>()
+
+    private val fragmentChangeLiveData = MutableLiveData<IAccountService.LoginAction>()
 
     private lateinit var secureSharedPref: SharedPreferences
 
@@ -41,9 +44,26 @@ class AccountServiceImpl : IAccountService {
         }
     }
 
-    override fun getAccountLiveData() = accountLiveData
-
     override fun isLogin() = secureSharedPref.getBoolean(USER_IS_LOGIN, false)
+
+    override fun observeLoginState(
+        lifecycleOwner: LifecycleOwner,
+        listener: (liveData: IAccountService.LoginState) -> Unit
+    ) {
+        accountLiveData.observe(lifecycleOwner) { listener.invoke(it) }
+    }
+
+    override fun observeFragmentChange(
+        lifecycleOwner: LifecycleOwner,
+        listener: (liveData: IAccountService.LoginAction) -> Unit
+    ) {
+        fragmentChangeLiveData.observe(lifecycleOwner) { listener.invoke(it) }
+    }
+
+    override fun sendChangeFragmentRequest(action: IAccountService.LoginAction) {
+        // TODO 多线程访问数据不安全 待使用Flow代替LiveData改写
+        fragmentChangeLiveData.value = action
+    }
 
     override fun login(douYinOpenApi: DouYinOpenApi) {
         val request = Authorization.Request()
@@ -54,11 +74,13 @@ class AccountServiceImpl : IAccountService {
 
     override fun responseLoginInfo(response: Authorization.Response) {
         if (response.isSuccess) {
+            // 登录成功
             accountLiveData.value = IAccountService.LoginState(
                 isLogIn = true,
                 authCode = response.authCode
             )
         } else {
+            // 登录失败
             accountLiveData.value = IAccountService.LoginState(
                 isLogFail = true,
                 errorMsg = response.errorMsg
