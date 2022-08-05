@@ -30,6 +30,9 @@
 
     ![delete-branch-after-merging-in-github](screenshot/delete-branch-after-merging-in-github.png)
 
+
+您可以使用`git branch -M [branchName]`来修改本地分支名，例如sulv在推送负责的account模块内容到远程分支后，准备开始写rank模块的内容时，可以使用`git branch -M sulv/rank`修改分支名，然后继续工作。
+
 ## Git Commit Type
 
 - `feat`: Add a new feature to the codebase.
@@ -39,3 +42,5 @@
 - `refactor`: Refactor code without changing public API.
 - `perf`: Update code performances.
 - `test`: Add test to an existing feature.
+
+注：可根据特殊场景自定CommitType，但尽量保持简洁、易懂。
