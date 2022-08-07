@@ -24,6 +24,7 @@ class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
         super.onCreate(savedInstanceState)
         mDouYinOpenApi = DouYinOpenApiFactory.create(this)
         mDouYinOpenApi.handleIntent(intent, this)
+        log { "Login onCreate" }
     }
 
     override fun onReq(req: BaseReq?) {
@@ -31,8 +32,10 @@ class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
 
     override fun onResp(resq: BaseResp?) {
         // 授权成功获取AuthCode
+        log { "Login ${resq?.type}" }
         if (CommonConstants.ModeType.SEND_AUTH_RESPONSE == resq?.type) {
             val response = resq as Authorization.Response
+            log { "Login ${response.isSuccess}" }
             mAccountService.responseLoginInfo(response)
             finish()
         }
