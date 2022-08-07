@@ -5,9 +5,9 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import com.qxy.lib.base.ext.log
 import com.qxy.lib.base.ui.BaseView
 
 /**
@@ -28,17 +28,18 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     /**
      * 替代Fragment
-     * 如果
+     * TODO 待解释
+     * 注意这里的[F]不是实际的类型
      */
     protected inline fun <reified F : Fragment> replaceFragment(
         @IdRes containerViewId: Int,
-        newFragment: () -> F
+        generateFragment: () -> F
     ) {
-        var fragment = supportFragmentManager.findFragmentById(containerViewId)
-        if (fragment !is F) {
-            fragment = newFragment.invoke()
+        val oldFragment = supportFragmentManager.findFragmentById(containerViewId)
+        val newFragment = generateFragment.invoke()
+        if (oldFragment == null || oldFragment::class != newFragment::class) {
             supportFragmentManager.commit {
-                replace(containerViewId, fragment)
+                replace(containerViewId, newFragment)
             }
         }
     }
