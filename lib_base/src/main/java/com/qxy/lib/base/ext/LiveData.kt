@@ -1,6 +1,6 @@
 package com.qxy.lib.base.ext
 
-open class Event<out T>(private val value: T) {
+open class SingleLiveEvent<out T>(private val value: T) {
 
     private var mHasBeenHandled = false
 
@@ -12,5 +12,7 @@ open class Event<out T>(private val value: T) {
             value
         }
     }
+
+    fun peekValue() = value
 
 }

@@ -16,12 +16,18 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/common_ic_tiktok"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/common_ic_tiktok"
         android:supportsRtl="true"
         android:theme="@style/Theme.DouyinQxy"
         tools:targetApi="31">
+        <activity
+            android:name="com.qxy.codeerror.douyinapi.DouYinEntryActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.qxy.codeerror"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

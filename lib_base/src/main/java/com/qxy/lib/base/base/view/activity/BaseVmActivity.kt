@@ -1,4 +1,4 @@
-package com.qxy.lib.base.ui.activity
+package com.qxy.lib.base.base.view.activity
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

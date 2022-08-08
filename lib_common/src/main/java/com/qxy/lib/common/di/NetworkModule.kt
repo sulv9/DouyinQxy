@@ -1,6 +1,8 @@
-package com.qxy.lib.base.di
+package com.qxy.lib.common.di
 
 import com.qxy.lib.base.BuildConfig
+import com.qxy.lib.common.config.NetworkConfig
+import com.qxy.lib.common.network.base_url
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,14 +18,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "https://open.douyin.com/"
-    private const val TIME_OUT_SECONDS = 10
-
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(base_url)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -34,11 +33,11 @@ object NetworkModule {
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(
-                TIME_OUT_SECONDS.toLong(),
+                NetworkConfig.TIME_OUT_SECONDS.toLong(),
                 TimeUnit.SECONDS
             )
             .readTimeout(
-                TIME_OUT_SECONDS.toLong(),
+                NetworkConfig.TIME_OUT_SECONDS.toLong(),
                 TimeUnit.SECONDS
             )
             .addInterceptor(

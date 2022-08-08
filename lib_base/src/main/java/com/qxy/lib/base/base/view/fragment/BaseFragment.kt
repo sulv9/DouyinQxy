@@ -1,4 +1,4 @@
-package com.qxy.lib.base.ui.fragment
+package com.qxy.lib.base.base.view.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.qxy.lib.base.ext.log
-import com.qxy.lib.base.ui.BaseView
+import com.qxy.lib.base.base.view.IView
 
 /**
  * Activity基类，如果不需要使用binding和viewModel可以选择继承该类
  */
-abstract class BaseFragment: Fragment(), BaseView {
+abstract class BaseFragment: Fragment(), IView {
 
     /**
      * 是否打印生命周期

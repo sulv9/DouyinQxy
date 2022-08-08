@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_ll_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -35,7 +36,7 @@
             android:checked="true"
             android:gravity="center"
             android:text="@string/main_bottom_rank_text"
-            android:textColor="@drawable/selector_radio_button_text"
+            android:textColor="@drawable/common_selector_radio_button_text"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -48,7 +49,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="@string/main_bottom_personal_text"
-            android:textColor="@drawable/selector_radio_button_text"
+            android:textColor="@drawable/common_selector_radio_button_text"
             android:textSize="18sp" />
 
     </RadioGroup>
