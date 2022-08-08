@@ -1,9 +1,12 @@
 package com.qxy.codeerror.convention.project
 
+import com.qxy.codeerror.convention.depend.Libs
 import com.qxy.codeerror.convention.depend.dependAndroidUI
 import com.qxy.codeerror.convention.depend.dependLibBase
+import com.qxy.codeerror.convention.depend.dependNetwork
 import com.qxy.codeerror.convention.project.base.BaseLibProject
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 /**
  * lib_common模块，指当前项目各个模块公用的自定义view、资源文件等等
@@ -13,5 +16,10 @@ class LibCommonProject(project: Project): BaseLibProject(project) {
     override fun initProjectInImpl() {
         dependLibBase()
         dependAndroidUI()
+        dependNetwork()
+        dependencies {
+            "implementation"(Libs.`logging-interceptor`)
+            "implementation"(Libs.`converter-gson`)
+        }
     }
 }

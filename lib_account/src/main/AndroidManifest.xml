@@ -3,12 +3,12 @@
     package="com.qxy.lib.account">
 
     <application>
-        <activity
-            android:name="com.qxy.lib.account.douyinapi.DouYinEntryActivity"
-            android:launchMode="singleTask"
-            android:taskAffinity="com.qxy.codeerror"
-            android:exported="true">
-        </activity>
+<!--        <activity-->
+<!--            android:name="com.qxy.codeerror.douyinapi.DouYinEntryActivity"-->
+<!--            android:launchMode="singleTask"-->
+<!--            android:taskAffinity="com.qxy.codeerror"-->
+<!--            android:exported="true">-->
+<!--        </activity>-->
     </application>
 
 </manifest>

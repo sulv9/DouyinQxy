@@ -13,4 +13,5 @@
     <color name="color_text_selected">#161824</color>
     <color name="color_view_border_normal">#e1e1e1</color>
     <color name="color_view_border_solid_pressed">#55e1e1e1</color>
+    <color name="color_light_red">#ff2d60</color>
 </resources>

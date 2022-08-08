@@ -1,4 +1,4 @@
-package com.qxy.lib.base.ui.activity
+package com.qxy.lib.base.base.view.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater

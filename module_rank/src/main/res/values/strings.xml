@@ -1,3 +1,4 @@
 <resources>
     <string name="main_tv_text_change_rank">切换榜单</string>
+    <string name="rank_item_tv_text_buy_ticket">购票</string>
 </resources>

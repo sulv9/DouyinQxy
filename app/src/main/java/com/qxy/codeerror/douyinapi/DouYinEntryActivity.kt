@@ -1,4 +1,4 @@
-package com.qxy.lib.account.douyinapi
+package com.qxy.codeerror.douyinapi
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,7 @@ import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.qxy.api.account.IAccountService
 import com.qxy.lib.base.ext.log
-import com.qxy.lib.base.ui.activity.BaseActivity
+import com.qxy.lib.base.base.view.activity.BaseActivity
 import com.qxy.lib.base.util.ARouterUtil
 
 class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
@@ -24,7 +24,6 @@ class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
         super.onCreate(savedInstanceState)
         mDouYinOpenApi = DouYinOpenApiFactory.create(this)
         mDouYinOpenApi.handleIntent(intent, this)
-        log { "Login onCreate" }
     }
 
     override fun onReq(req: BaseReq?) {
@@ -32,10 +31,8 @@ class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
 
     override fun onResp(resq: BaseResp?) {
         // 授权成功获取AuthCode
-        log { "Login ${resq?.type}" }
         if (CommonConstants.ModeType.SEND_AUTH_RESPONSE == resq?.type) {
             val response = resq as Authorization.Response
-            log { "Login ${response.isSuccess}" }
             mAccountService.responseLoginInfo(response)
             finish()
         }

@@ -1,17 +1,16 @@
 package com.sulv.module.login
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.qxy.api.account.IAccountService
-import com.qxy.lib.base.ui.fragment.BaseBindFragment
+import com.qxy.lib.base.ext.setLightStatusBar
+import com.qxy.lib.base.base.view.fragment.BaseBindFragment
 import com.qxy.lib.base.util.ARouterUtil
 import com.qxy.lib.common.config.RouteTable
 import com.sulv.module.login.databinding.FragmentLoginBinding
-import kotlinx.coroutines.delay
 
 @Route(path = RouteTable.LOGIN_ENTRY)
 class LoginFragment : BaseBindFragment<FragmentLoginBinding>() {
@@ -31,7 +30,6 @@ class LoginFragment : BaseBindFragment<FragmentLoginBinding>() {
                     // 登录成功
                     binding.loginTvGoLogin.text = getString(R.string.login_tv_text_login_success)
                     // TODO 登录成功动画
-                    Thread.sleep(500L)
                     mAccountService.sendChangeFragmentRequest(IAccountService.LoginAction(logIn = true))
                 }
                 loginState.isLogFail -> {
@@ -45,7 +43,8 @@ class LoginFragment : BaseBindFragment<FragmentLoginBinding>() {
 
     private fun setStatusBarWhite() {
         with(requireActivity()) {
-            window.statusBarColor = ContextCompat.getColor(this, Color.WHITE)
+            window.statusBarColor = ContextCompat.getColor(this, com.qxy.lib.common.R.color.white)
+            setLightStatusBar()
         }
     }
 

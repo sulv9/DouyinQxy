@@ -1,5 +1,3 @@
-@file:Suppress("ObjectPropertyName", "SpellCheckingInspection")
-
 package com.qxy.codeerror.convention.depend
 
 import org.gradle.api.Project

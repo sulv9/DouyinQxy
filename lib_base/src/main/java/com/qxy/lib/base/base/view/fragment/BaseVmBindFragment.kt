@@ -1,4 +1,4 @@
-package com.qxy.lib.base.ui.fragment
+package com.qxy.lib.base.base.view.fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
