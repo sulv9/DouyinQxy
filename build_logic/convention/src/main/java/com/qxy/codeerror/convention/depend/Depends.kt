@@ -129,3 +129,9 @@ fun Project.dependSecurity() {
 //        "androidTestImplementation"(Libs.`security-app-authenticator`)
     }
 }
+
+fun Project.dependPaging() {
+    dependencies {
+        "implementation"(Libs.`paging-runtime`)
+    }
+}
