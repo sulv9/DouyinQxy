@@ -4,6 +4,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.DouYinOpenConfig
 import com.qxy.lib.base.BaseApp
+import com.qxy.lib.base.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -14,7 +15,7 @@ import timber.log.Timber
 class MainApplication : BaseApp() {
     override fun onCreate() {
         super.onCreate()
-        DouYinOpenApiFactory.init(DouYinOpenConfig(com.qxy.lib.base.BuildConfig.DOUYIN_KEY))
+        DouYinOpenApiFactory.init(DouYinOpenConfig(BuildConfig.DOUYIN_KEY))
         if (BuildConfig.DEBUG) {
             ARouter.openLog()
             ARouter.openDebug()

@@ -5,3 +5,4 @@ plugins {
 }
 
 dependSecurity()
+dependNetwork()
