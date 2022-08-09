@@ -1,9 +1,9 @@
 package com.qxy.module.rank.data.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.google.gson.annotations.SerializedName
+import com.qxy.lib.base.util.fromJson
+import com.qxy.lib.base.util.toJson
 import com.qxy.lib.common.network.ApiStatus
 
 data class RankData(
@@ -13,6 +13,7 @@ data class RankData(
 ) : ApiStatus()
 
 @Entity(tableName = "rank_item")
+@TypeConverters(ListConverter::class)
 data class RankItem(
     val actors: List<String>, // 演员
     val areas: List<String>, // 地区
@@ -46,3 +47,11 @@ data class RankItem(
     val topicHot: Long, // 话题热度值
     val type: Int, // 类型：1=电影 2=电视剧 3=综艺
 )
+
+class ListConverter {
+    @TypeConverter
+    fun listToString(data: List<String>): String = data.toJson()
+
+    @TypeConverter
+    fun stringToList(value: String): List<String> = value.fromJson()
+}

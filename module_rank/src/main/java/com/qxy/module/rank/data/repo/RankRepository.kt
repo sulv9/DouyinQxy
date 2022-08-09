@@ -5,6 +5,8 @@ import com.qxy.lib.base.base.repository.ILocalDataSource
 import com.qxy.lib.base.base.repository.IRemoteDataSource
 import com.qxy.module.rank.data.api.RankService
 import com.qxy.module.rank.data.db.RankDao
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RankRepository @Inject constructor(
@@ -19,7 +21,6 @@ class RankRepository @Inject constructor(
 class RankRemoteDataSource @Inject constructor(
     private val rankService: RankService
 ) : IRemoteDataSource {
-
 }
 
 class RankLocalDataSource @Inject constructor(
