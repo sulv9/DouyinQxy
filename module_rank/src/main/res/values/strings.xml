@@ -1,4 +1,7 @@
 <resources>
     <string name="main_tv_text_change_rank">切换榜单</string>
     <string name="rank_item_tv_text_buy_ticket">购票</string>
+    <string name="rank_title_movie">电影榜</string>
+    <string name="rank_title_tv">电视剧榜</string>
+    <string name="rank_title_show">综艺榜</string>
 </resources>

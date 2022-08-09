@@ -10,16 +10,17 @@ import com.qxy.lib.base.util.GenericUtil
  */
 abstract class BaseVmBindActivity<VM: ViewModel, VB: ViewBinding>: BaseBindActivity<VB>(){
 
-    protected val mViewModelFactory: ViewModelProvider.Factory? = null
+    protected open fun getViewModelFactory(): ViewModelProvider.Factory? = null
 
     @Suppress("UNCHECKED_CAST")
     protected val viewModel by lazy {
-        if (mViewModelFactory == null) {
+        val factory = getViewModelFactory()
+        if (factory == null) {
             ViewModelProvider(this)[GenericUtil.getGenericFromSuper(javaClass)] as VM
         } else {
             ViewModelProvider(
                 this,
-                mViewModelFactory
+                factory
             )[GenericUtil.getGenericFromSuper(javaClass)] as VM
         }
     }
