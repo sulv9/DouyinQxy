@@ -8,16 +8,21 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.tabs.TabLayoutMediator
 import com.qxy.lib.base.base.view.adapter.SimpleViewPagerAdapter
-import com.qxy.lib.base.base.view.fragment.BaseVmBindFragment
+import com.qxy.lib.base.base.view.fragment.BaseBindFragment
 import com.qxy.lib.base.ext.dp
 import com.qxy.lib.base.ext.getStatusBarHeight
 import com.qxy.lib.common.config.RouteTable
+import com.qxy.module.rank.R
 import com.qxy.module.rank.databinding.FragmentRankBinding
 
 @Route(path = RouteTable.RANK_ENTRY)
-class RankFragment : BaseVmBindFragment<RankViewModel, FragmentRankBinding>() {
+class RankFragment : BaseBindFragment<FragmentRankBinding>() {
 
-    private val typeWithName = mapOf(1 to "电影榜", 2 to "电视剧榜", 3 to "综艺榜")
+    private val typeWithName = mapOf(
+        1 to getString(R.string.rank_title_movie),
+        2 to getString(R.string.rank_title_tv),
+        3 to getString(R.string.rank_title_show)
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initView()
@@ -34,7 +39,7 @@ class RankFragment : BaseVmBindFragment<RankViewModel, FragmentRankBinding>() {
         // viewpager联合tabLayout
         TabLayoutMediator(binding.rankTl, binding.rankVp) { tab, position ->
             tab.text = typeWithName[position + 1]
-        }
+        }.attach()
     }
 
     /**
