@@ -14,7 +14,7 @@ import timber.log.Timber
 class MainApplication : BaseApp() {
     override fun onCreate() {
         super.onCreate()
-        DouYinOpenApiFactory.init(DouYinOpenConfig(BuildConfig.DOUYIN_KEY))
+        DouYinOpenApiFactory.init(DouYinOpenConfig(com.qxy.lib.base.BuildConfig.DOUYIN_KEY))
         if (BuildConfig.DEBUG) {
             ARouter.openLog()
             ARouter.openDebug()

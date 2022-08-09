@@ -5,13 +5,20 @@ import android.view.View
 import com.qxy.lib.base.base.view.fragment.BaseVmBindFragment
 import com.qxy.lib.base.base.viewmodel.BaseViewModelFactory
 import com.qxy.lib.base.util.args
+import com.qxy.module.rank.data.repo.RankRepository
 import com.qxy.module.rank.databinding.FragmentRankListBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RankListFragment : BaseVmBindFragment<RankViewModel, FragmentRankListBinding>() {
 
     private var type: Int by args()
 
-    override fun getViewModelFactory() = BaseViewModelFactory { type }
+    @Inject
+    lateinit var repo: RankRepository
+
+    override fun getViewModelFactory() = BaseViewModelFactory { RankViewModel(type, repo) }
 
     companion object {
         fun newInstance(type: Int) = RankListFragment().apply {

@@ -12,6 +12,7 @@ import com.qxy.api.account.IAccountService
 import com.qxy.lib.account.USER_AUTH_CODE
 import com.qxy.lib.account.USER_IS_LOGIN
 import com.qxy.lib.account.ext.secureSharedPref
+import com.qxy.lib.base.BuildConfig
 import com.qxy.lib.base.ext.clear
 import com.qxy.lib.base.ext.log
 import com.qxy.lib.common.config.RouteTable

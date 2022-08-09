@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/common_tv_load_fail"
+        android:id="@+id/common_iv_load_fail"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:importantForAccessibility="no"

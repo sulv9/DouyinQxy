@@ -56,12 +56,6 @@ class AppProject(project: Project): BaseAppProject(project) {
                 }
             }
 
-            defaultConfig {
-                (ext["secret"]["buildConfig"] as Map<String, String>).forEach { (k, v) ->
-                    buildConfigField("String", k, v)
-                }
-            }
-
             buildTypes {
                 release {
                     signingConfig = signingConfigs.getByName("config")
