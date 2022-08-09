@@ -83,4 +83,17 @@ object Libs {
     const val `security-identity-credential` = "androidx.security:security-identity-credential:1.0.0"
     // For App Authentication APIs
     const val `security-app-authenticator` = "androidx.security:security-app-authenticator:1.0.0"
+
+    // Paging 3 - https://developer.android.com/topic/libraries/architecture/paging/v3-overview
+    const val `paging-runtime` = "androidx.paging:paging-runtime:${Versions.paging_version}"
+    // alternatively - without Android dependencies for tests
+    const val `paging-common` = "androidx.paging:paging-common:${Versions.paging_version}"
+    // optional - RxJava2 support
+    const val `paging-rxjava2` = "androidx.paging:paging-rxjava2:${Versions.paging_version}"
+    // optional - RxJava3 support
+    const val `paging-rxjava3` = "androidx.paging:paging-rxjava3:${Versions.paging_version}"
+    // optional - Guava ListenableFuture support
+    const val `paging-giava` = "androidx.paging:paging-guava:${Versions.paging_version}"
+    // optional - Jetpack Compose integration
+    const val `paging-compose` = "androidx.paging:paging-compose:1.0.0-alpha15"
 }
