@@ -6,4 +6,3 @@ plugins {
 
 dependNetwork()
 dependRoom()
-dependPaging()
