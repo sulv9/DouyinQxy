@@ -135,3 +135,10 @@ fun Project.dependPaging() {
         "implementation"(Libs.`paging-runtime`)
     }
 }
+
+fun Project.dependGlide() {
+    dependencies {
+        "implementation"(Libs.glide)
+        "kapt"(Libs.`glide-compiler`)
+    }
+}

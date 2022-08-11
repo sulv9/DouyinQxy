@@ -25,10 +25,7 @@
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/activity_rank.xml" value="0.4088541666666667" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/fragment_rank.xml" value="0.264" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/fragment_rank_list.xml" value="0.2" />
-        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/item_recycler_rank.xml" value="0.264" />
-        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/lib_common/src/main/res/layout/common_page_load_fail.xml" value="0.1265625" />
-        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_login/src/main/res/layout/fragment_login.xml" value="0.2" />
-        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_personal/src/main/res/layout/fragment_personal.xml" value="0.1" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/item_recycler_rank.xml" value="0.2" />
       </map>
     </option>
   </component>

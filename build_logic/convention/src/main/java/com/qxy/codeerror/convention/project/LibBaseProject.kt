@@ -2,6 +2,7 @@ package com.qxy.codeerror.convention.project
 
 import com.android.build.api.dsl.LibraryExtension
 import com.qxy.codeerror.convention.depend.dependAndroidUI
+import com.qxy.codeerror.convention.depend.dependGlide
 import com.qxy.codeerror.convention.depend.dependNetwork
 import com.qxy.codeerror.convention.depend.dependRoom
 import com.qxy.codeerror.convention.project.base.BaseLibProject
@@ -20,6 +21,7 @@ class LibBaseProject(project: Project): BaseLibProject(project) {
         dependNetwork()
         dependRoom()
         dependAndroidUI()
+        dependGlide()
         configBuild()
     }
 

@@ -5,14 +5,13 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/rank_item_iv_poster"
         android:layout_width="120dp"
         android:layout_height="180dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="4dp"
-        android:scaleType="centerCrop"/>
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/rank_item_tv_name"
