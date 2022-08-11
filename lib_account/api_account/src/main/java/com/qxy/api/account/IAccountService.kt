@@ -46,6 +46,8 @@ interface IAccountService : IProvider {
      */
     fun responseLoginInfo(response: Authorization.Response)
 
+    suspend fun getAccessToken(): String
+
     /**
      * 登录行为
      */
