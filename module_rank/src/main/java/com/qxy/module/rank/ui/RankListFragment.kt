@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.qxy.lib.base.base.view.fragment.BaseVmBindFragment
 import com.qxy.lib.base.base.viewmodel.BaseViewModelFactory
+import com.qxy.lib.base.ext.observe
 import com.qxy.lib.base.util.args
 import com.qxy.module.rank.data.repo.RankRepository
 import com.qxy.module.rank.databinding.FragmentRankListBinding
@@ -28,6 +29,11 @@ class RankListFragment : BaseVmBindFragment<RankViewModel, FragmentRankListBindi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observe(viewModel.rankData, this::showRankView)
+    }
+
+    private fun showRankView(state: RankViewState) {
+
     }
 
 }
