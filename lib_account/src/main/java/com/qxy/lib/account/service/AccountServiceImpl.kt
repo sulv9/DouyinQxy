@@ -19,9 +19,10 @@ import javax.inject.Inject
 
 
 @Route(path = RouteTable.ACCOUNT_SERVICE)
-class AccountServiceImpl @Inject constructor(
-    private val repo: AccountRepository
-) : IAccountService {
+class AccountServiceImpl : IAccountService {
+
+    @Inject
+    lateinit var repo: AccountRepository
 
     private val accountLiveData = MutableLiveData<IAccountService.LoginState>()
 
