@@ -9,6 +9,7 @@ import com.qxy.lib.common.network.ApiStatus
 data class RankData(
     @SerializedName("active_time")
     val activeTime: String, // 响应时间
+    @SerializedName("list")
     val rankList: List<RankItem>?, // rank列表
 ) : ApiStatus()
 
@@ -46,6 +47,7 @@ data class RankItem(
     @ColumnInfo(name = "topic_hot")
     val topicHot: Long, // 话题热度值
     val type: Int, // 类型：1=电影 2=电视剧 3=综艺
+    val version: Int?
 )
 
 class ListConverter {

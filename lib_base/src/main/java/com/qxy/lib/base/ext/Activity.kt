@@ -6,7 +6,10 @@ import android.graphics.BitmapFactory
 import android.util.DisplayMetrics
 import android.view.View
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.palette.graphics.Palette
 
 /**
@@ -87,4 +90,11 @@ fun Activity.getStatusBarHeight(): Int {
         result = resources.getDimensionPixelSize(resourceId)
     }
     return result
+}
+
+/**
+ * 更直观的观察LiveData的写法
+ */
+inline fun <T> AppCompatActivity.observe(liveData: LiveData<T>, crossinline observer: (t: T) -> Unit) {
+    liveData.observe(this) { it?.let(observer) }
 }
