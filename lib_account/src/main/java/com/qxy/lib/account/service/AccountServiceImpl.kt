@@ -12,14 +12,16 @@ import com.qxy.api.account.IAccountService
 import com.qxy.lib.account.USER_AUTH_CODE
 import com.qxy.lib.account.USER_IS_LOGIN
 import com.qxy.lib.account.ext.secureSharedPref
-import com.qxy.lib.base.BuildConfig
+import com.qxy.lib.account.repo.AccountRepository
 import com.qxy.lib.base.ext.clear
-import com.qxy.lib.base.ext.log
 import com.qxy.lib.common.config.RouteTable
+import javax.inject.Inject
 
 
 @Route(path = RouteTable.ACCOUNT_SERVICE)
-class AccountServiceImpl : IAccountService {
+class AccountServiceImpl @Inject constructor(
+    private val repo: AccountRepository
+) : IAccountService {
 
     private val accountLiveData = MutableLiveData<IAccountService.LoginState>()
 
@@ -72,6 +74,10 @@ class AccountServiceImpl : IAccountService {
         request.scope = "user_info,trial.whitelist" // 用户授权时必选权限
         request.state = "ww" // 用于保持请求和回调的状态，授权请求后原样带回给第三方。
         douYinOpenApi.authorize(request) // 优先使用抖音app进行授权，如果抖音app因版本或者其他原因无法授权，则使用wap页授权
+    }
+
+    override suspend fun getAccessToken(): String {
+        return repo.getAccessToken()
     }
 
     override fun responseLoginInfo(response: Authorization.Response) {

@@ -1,7 +1,11 @@
-package com.qxy.lib.account
+package com.qxy.lib.account.repo
 
 import android.content.Context
 import androidx.core.content.edit
+import com.qxy.lib.account.ACCESS_TOKEN
+import com.qxy.lib.account.ACCESS_TOKEN_EXPIRES_IN
+import com.qxy.lib.account.ACCESS_TOKEN_SAVED_TIMESTAMP
+import com.qxy.lib.account.USER_AUTH_CODE
 import com.qxy.lib.account.ext.secureSharedPref
 import com.qxy.lib.account.network.TokenService
 import com.qxy.lib.base.BuildConfig
