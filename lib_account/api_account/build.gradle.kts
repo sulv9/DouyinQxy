@@ -11,6 +11,8 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":lib_account"))
+    implementation(project(":lib_base"))
     implementation(com.qxy.codeerror.convention.depend.Libs.`arouter-api`)
     kapt(com.qxy.codeerror.convention.depend.Libs.`arouter-compiler`)
 }
