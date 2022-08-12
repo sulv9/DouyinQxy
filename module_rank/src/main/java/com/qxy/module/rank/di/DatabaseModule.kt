@@ -20,9 +20,4 @@ object DatabaseModule {
         return RankDatabase.getInstance(context)
     }
 
-    @Provides
-    fun provideRankDao(rankDatabase: RankDatabase): RankDao {
-        return rankDatabase.rankDao()
-    }
-
 }

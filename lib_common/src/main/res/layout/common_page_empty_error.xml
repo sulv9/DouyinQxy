@@ -6,23 +6,18 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/common_cpi_loading"
+    <ImageView
+        android:id="@+id/common_iv_load_fail"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:max="100"
-        android:progress="30"
-        app:hideAnimationBehavior="inward"
-        app:indicatorSize="50dp"
-        app:showAnimationBehavior="inward"
-        app:trackCornerRadius="5dp"
-        app:trackThickness="5dp" />
+        android:importantForAccessibility="no"
+        android:src="@drawable/common_ic_empty" />
 
     <TextView
-        android:id="@+id/common_tv_loading"
+        android:id="@+id/common_tv_load_fail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="@string/common_tv_text_loading" />
+        android:text="@string/common_tv_text_empty_error" />
 
 </LinearLayout>

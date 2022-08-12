@@ -11,7 +11,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:importantForAccessibility="no"
-        android:src="@drawable/common_ic_wrong" />
+        android:src="@drawable/common_ic_error" />
 
     <TextView
         android:id="@+id/common_tv_load_fail"

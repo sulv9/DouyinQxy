@@ -38,7 +38,6 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
             Boolean::class.java
         )
         _binding = method.invoke(null, inflater, container, false) as VB
-        log { "onCreateView container null ? ${container == null}" }
         return binding.root
     }
 

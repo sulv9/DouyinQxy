@@ -3,26 +3,36 @@ package com.sulv.module.main
 import android.graphics.Typeface
 import com.qxy.api.account.IAccountService
 import com.qxy.lib.base.base.view.activity.BaseBindActivity
+import com.qxy.lib.base.base.view.adapter.HandleFragment
+import com.qxy.lib.base.base.view.adapter.SimpleViewPagerAdapter
 import com.qxy.lib.base.util.ARouterUtil
 import com.qxy.lib.common.config.RouteTable
 import com.sulv.module.main.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseBindActivity<ActivityMainBinding>() {
-
-    override val isStatusBarTransparent = true
-
-    override val isPortraitScreen: Boolean
-        get() = false
 
     private val mAccountService = ARouterUtil.getService(IAccountService::class)
 
-    private val loginFragment by lazy { ARouterUtil.getFragment(RouteTable.LOGIN_ENTRY) }
-    private val rankFragment by lazy { ARouterUtil.getFragment(RouteTable.RANK_ENTRY) }
-    private val personalFragment by lazy { ARouterUtil.getFragment(RouteTable.PERSONAL_ENTRY) }
+    private enum class ChildFragments(val fragment: HandleFragment) {
+        LoginFragment({ ARouterUtil.getFragment(RouteTable.LOGIN_ENTRY) }),
+        RankFragment({ ARouterUtil.getFragment(RouteTable.RANK_ENTRY) }),
+        PersonalFragment({ ARouterUtil.getFragment(RouteTable.PERSONAL_ENTRY) }),
+    }
 
     override fun initView() {
+        // 初始化viewpager
+        val pagerAdapter = SimpleViewPagerAdapter(supportFragmentManager, lifecycle)
+        ChildFragments.values()
+            .forEach { childFragment -> pagerAdapter.add(childFragment.fragment) }
+        binding.mainVp.adapter = pagerAdapter
+        binding.mainVp.isUserInputEnabled = false // 禁止滑动 TODO 解决滑动冲突
         // 初始化显示Fragment的内容
-        changeToCheckedFragment(binding.mainBottomRg.checkedRadioButtonId, mAccountService.isLogin())
+        changeToCheckedFragment(
+            binding.mainBottomRg.checkedRadioButtonId,
+            mAccountService.isLogin()
+        )
         // 监听底部RadioGroup点击变化
         binding.mainBottomRg.setOnCheckedChangeListener { _, checkedId ->
             // 设置按钮选中时文字加粗
@@ -44,7 +54,10 @@ class MainActivity : BaseBindActivity<ActivityMainBinding>() {
                         true
                     )
                 }
-                loginAction.logOut -> replaceFragment(R.id.main_fcv) { loginFragment }
+                loginAction.logOut -> binding.mainVp.setCurrentItem(
+                    ChildFragments.LoginFragment.ordinal,
+                    false
+                )
             }
         }
     }
@@ -55,14 +68,20 @@ class MainActivity : BaseBindActivity<ActivityMainBinding>() {
     private fun changeToCheckedFragment(checkId: Int, isLogin: Boolean) {
         when (checkId) {
             R.id.main_bottom_rank -> {
-                replaceFragment(R.id.main_fcv) {
-                    if (isLogin) ARouterUtil.getFragment(RouteTable.RANK_ENTRY) else loginFragment
-                }
+                binding.mainVp.setCurrentItem(
+                    if (!isLogin)
+                        ChildFragments.LoginFragment.ordinal
+                    else
+                        ChildFragments.RankFragment.ordinal, false
+                )
             }
             R.id.main_bottom_personal -> {
-                replaceFragment(R.id.main_fcv) {
-                    if (isLogin) personalFragment else loginFragment
-                }
+                binding.mainVp.setCurrentItem(
+                    if (!isLogin)
+                        ChildFragments.LoginFragment.ordinal
+                    else
+                        ChildFragments.PersonalFragment.ordinal, false
+                )
             }
         }
     }

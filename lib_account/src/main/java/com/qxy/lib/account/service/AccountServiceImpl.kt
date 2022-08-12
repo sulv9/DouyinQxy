@@ -11,18 +11,18 @@ import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.qxy.api.account.IAccountService
 import com.qxy.lib.account.USER_AUTH_CODE
 import com.qxy.lib.account.USER_IS_LOGIN
+import com.qxy.lib.account.di.AccountRepoPoint
 import com.qxy.lib.account.ext.secureSharedPref
 import com.qxy.lib.account.repo.AccountRepository
 import com.qxy.lib.base.ext.clear
 import com.qxy.lib.common.config.RouteTable
-import javax.inject.Inject
+import dagger.hilt.android.EntryPointAccessors
 
 
 @Route(path = RouteTable.ACCOUNT_SERVICE)
 class AccountServiceImpl : IAccountService {
 
-    @Inject
-    lateinit var repo: AccountRepository
+    private lateinit var repo: AccountRepository
 
     private val accountLiveData = MutableLiveData<IAccountService.LoginState>()
 
@@ -31,6 +31,8 @@ class AccountServiceImpl : IAccountService {
     private lateinit var secureSharedPref: SharedPreferences
 
     override fun init(context: Context) {
+        repo = EntryPointAccessors.fromApplication(context, AccountRepoPoint::class.java)
+            .getAccountRepo()
         secureSharedPref = context.secureSharedPref
         accountLiveData.observeForever {
             when {
