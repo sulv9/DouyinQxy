@@ -7,7 +7,7 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 inline fun <reified T> Fragment.args(): ReadWriteProperty<Fragment, T> = bundleDelegate {
-    arguments ?: Bundle()
+    arguments ?: Bundle().also { arguments = it }
 }
 
 inline fun <F, reified T> bundleDelegate(

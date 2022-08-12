@@ -21,13 +21,11 @@ open class SimpleViewPagerAdapter(
         return mFragmentList[position].invoke()
     }
 
-    fun add(fragment: HandleFragment): SimpleViewPagerAdapter {
+    fun add(fragment: HandleFragment) {
         mFragmentList.add(fragment)
-        return this
     }
 
-    fun add(fragmentList: List<HandleFragment>): SimpleViewPagerAdapter {
+    fun add(fragmentList: List<HandleFragment>) {
         mFragmentList.addAll(fragmentList)
-        return this
     }
 }
