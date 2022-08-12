@@ -22,5 +22,6 @@ object Versions {
     const val retrofit = "2.9.0"
     const val okHttp = "4.10.0"
     const val securityCrypto = "1.1.0-alpha03"
-    const val paging_version = "3.1.1"
+    const val paging = "3.1.1"
+    const val glide = "4.13.2"
 }

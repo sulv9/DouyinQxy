@@ -6,3 +6,5 @@ plugins {
 
 dependNetwork()
 dependRoom()
+dependGlide()
+dependApiAccount()

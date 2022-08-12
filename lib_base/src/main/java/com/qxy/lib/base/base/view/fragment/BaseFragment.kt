@@ -10,7 +10,7 @@ import com.qxy.lib.base.ext.log
 import com.qxy.lib.base.base.view.IView
 
 /**
- * Activity基类，如果不需要使用binding和viewModel可以选择继承该类
+ * Fragment基类，如果不需要使用binding和viewModel可以选择继承该类
  */
 abstract class BaseFragment: Fragment(), IView {
 

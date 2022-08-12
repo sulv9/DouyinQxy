@@ -13,9 +13,4 @@ open class ApiStatus(
     val errorMsg: String = "",
 ) {
     val isSuccess: Boolean get() = errorCode == 0
-
-    @Throws(ApiException::class)
-    fun throwApiExceptionWhenFail() {
-        if (!isSuccess) throw ApiException(errorCode, errorMsg)
-    }
 }

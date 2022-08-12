@@ -1,5 +1,6 @@
 package com.qxy.codeerror.douyinapi
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.bytedance.sdk.open.aweme.CommonConstants
@@ -11,10 +12,9 @@ import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.qxy.api.account.IAccountService
 import com.qxy.lib.base.ext.log
-import com.qxy.lib.base.base.view.activity.BaseActivity
 import com.qxy.lib.base.util.ARouterUtil
 
-class DouYinEntryActivity : BaseActivity(), IApiEventHandler {
+class DouYinEntryActivity : Activity(), IApiEventHandler {
 
     private lateinit var mDouYinOpenApi: DouYinOpenApi
 

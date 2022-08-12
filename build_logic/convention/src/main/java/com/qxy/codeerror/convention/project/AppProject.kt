@@ -2,6 +2,7 @@
 
 package com.qxy.codeerror.convention.project
 
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.qxy.codeerror.convention.project.base.BaseAppProject
 import org.gradle.api.Project
@@ -10,18 +11,19 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
+import java.io.File
 
 /**
  * app模块实现类
  * 实现app模块依赖其他所有的module和lib模块配置
  * 配置debug和release的签名及BuildConfig
  */
-class AppProject(project: Project): BaseAppProject(project) {
+class AppProject(project: Project) : BaseAppProject(project) {
     override fun initProjectInImpl() {
         // app模块不需要依赖的模块
         val excludeModuleList = listOf<String>()
         // app需要依赖的所有子模块
-        val includeModuleList =rootProject.allprojects.map { it.name }
+        val includeModuleList = rootProject.allprojects.map { it.name }
 
         // 依赖所有其他模块
         dependencies {
@@ -54,6 +56,14 @@ class AppProject(project: Project): BaseAppProject(project) {
                     storePassword = ext["secret"]["sign"]["RELEASE_STORE_PASSWORD"] as String
                     storeFile = file("$rootDir/build_logic/secret/key-qxy.jks")
                 }
+            }
+
+            applicationVariants.all {
+                outputs.map { it as BaseVariantOutputImpl }
+                    .forEach { output ->
+                        output.outputFileName =
+                            "DouyinQxy-${versionName}-${versionCode}-${baseName}.apk"
+                    }
             }
 
             buildTypes {

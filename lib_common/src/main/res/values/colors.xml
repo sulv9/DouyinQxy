@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
 
     <color name="color_divider_bottom">#f0f0f0</color>
     <color name="color_text_normal">#73737b</color>
@@ -14,4 +15,7 @@
     <color name="color_view_border_normal">#e1e1e1</color>
     <color name="color_view_border_solid_pressed">#55e1e1e1</color>
     <color name="color_light_red">#ff2d60</color>
+
+    <color name="red_500">#E91E63</color>
+    <color name="red_700">#C2185B</color>
 </resources>
