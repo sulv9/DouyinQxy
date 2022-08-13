@@ -1,11 +1,9 @@
 package com.qxy.lib.account.network
 
+import com.qxy.lib.account.model.ClientToken
 import com.qxy.lib.account.model.TokenModel
 import com.qxy.lib.common.network.ApiResponse
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * @project DouyinQxy
@@ -23,5 +21,13 @@ interface TokenService {
         @Field("client_key") clientKey: String,
         @Field("grant_type") grantType: String = "authorization_code"
     ): ApiResponse<TokenModel>
+
+    @FormUrlEncoded
+    @POST("oauth/client_token")
+    suspend fun getClientToken(
+        @Field("client_key") clientKey: String,
+        @Field("client_secret") clientSecret: String,
+        @Field("grant_type") grantType: String = "client_credential",
+    ): ApiResponse<ClientToken>
 
 }

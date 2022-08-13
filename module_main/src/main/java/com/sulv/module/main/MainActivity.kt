@@ -22,6 +22,7 @@ class MainActivity : BaseBindActivity<ActivityMainBinding>() {
     }
 
     override fun initView() {
+        Thread.sleep(3000)
         // 初始化viewpager
         val pagerAdapter = SimpleViewPagerAdapter(supportFragmentManager, lifecycle)
         ChildFragments.values()
