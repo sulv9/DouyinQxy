@@ -48,6 +48,8 @@ interface IAccountService : IProvider {
 
     suspend fun getAccessToken(): String
 
+    suspend fun getClientToken(): String
+
     /**
      * 登录行为
      */

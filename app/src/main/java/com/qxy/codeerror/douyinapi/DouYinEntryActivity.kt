@@ -33,6 +33,7 @@ class DouYinEntryActivity : Activity(), IApiEventHandler {
         // 授权成功获取AuthCode
         if (CommonConstants.ModeType.SEND_AUTH_RESPONSE == resq?.type) {
             val response = resq as Authorization.Response
+            log { "DouYin code: ${response.authCode}" }
             mAccountService.responseLoginInfo(response)
             finish()
         }
