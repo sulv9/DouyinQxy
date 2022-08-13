@@ -75,7 +75,7 @@ class RankRemoteDataSource @Inject constructor(
      * 获取rank网络数据
      */
     suspend fun getRemoteRankData(type: Int, version: Int? = null): List<RankItem> {
-        val token = ARouterUtil.getService(IAccountService::class).getAccessToken()
+        val token = ARouterUtil.getService(IAccountService::class).getClientToken()
         return processApiResponse {
             log { "process Network Data - token:$token" }
             rankService.getRankItem(token, type, version)

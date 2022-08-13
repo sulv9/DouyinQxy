@@ -2,16 +2,18 @@ package com.qxy.lib.account.repo
 
 import android.content.Context
 import androidx.core.content.edit
-import com.qxy.lib.account.ACCESS_TOKEN
-import com.qxy.lib.account.ACCESS_TOKEN_EXPIRES_IN
-import com.qxy.lib.account.ACCESS_TOKEN_SAVED_TIMESTAMP
-import com.qxy.lib.account.USER_AUTH_CODE
+import com.qxy.lib.account.*
 import com.qxy.lib.account.ext.secureSharedPref
+import com.qxy.lib.account.model.ClientToken
 import com.qxy.lib.account.network.TokenService
 import com.qxy.lib.base.BuildConfig
+import com.qxy.lib.base.base.network.Errors
 import com.qxy.lib.base.base.repository.BaseRepositoryBoth
 import com.qxy.lib.base.base.repository.ILocalDataSource
 import com.qxy.lib.base.base.repository.IRemoteDataSource
+import com.qxy.lib.base.util.fromJson
+import com.qxy.lib.base.util.toJson
+import com.qxy.lib.common.network.processApiResponse
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -27,6 +29,17 @@ class AccountRepository @Inject constructor(
     remoteDataSource,
     localDataSource
 ) {
+
+    suspend fun getClientToken(): String {
+        val localClientToken = localDataSource.getLocalClientToken()
+        localClientToken?.let {
+            if (!isTokenExpire(it.responseTime, it.expiresIn)) return it.accessToken
+        }
+        val remoteClientToken = remoteDataSource.getRemoteClientToken()
+        localDataSource.saveLocalClientToken(remoteClientToken.copy(responseTime = System.currentTimeMillis()))
+        return remoteClientToken.accessToken
+    }
+
     suspend fun getAccessToken(): String {
         val savedTimestamp =
             localDataSource.secureSharedPref.getLong(ACCESS_TOKEN_SAVED_TIMESTAMP, 0)
@@ -35,7 +48,7 @@ class AccountRepository @Inject constructor(
         val savedExpire =
             localDataSource.secureSharedPref.getInt(ACCESS_TOKEN_EXPIRES_IN, 0)
 
-        return if (savedAccessToken != null && !accessTokenExpire(savedTimestamp, savedExpire)) {
+        return if (savedAccessToken != null && !isTokenExpire(savedTimestamp, savedExpire)) {
             savedAccessToken
         } else {
             val authCode = localDataSource.secureSharedPref.getString(USER_AUTH_CODE, "") ?: ""
@@ -53,17 +66,39 @@ class AccountRepository @Inject constructor(
         }
     }
 
-    private fun accessTokenExpire(savedTimestamp: Long, expire: Int): Boolean {
-        return System.currentTimeMillis() - savedTimestamp > expire * 1000
+    private fun isTokenExpire(savedTimestamp: Long, expireIn: Int): Boolean {
+        return System.currentTimeMillis() - savedTimestamp > expireIn * 1000
     }
+
+    private fun isTokenExpire(savedTimestamp: Long, expireIn: Long): Boolean {
+        return System.currentTimeMillis() - savedTimestamp > expireIn * 1000
+    }
+
 }
 
 class AccountRemoteDataSource @Inject constructor(
     val tokenService: TokenService
-) : IRemoteDataSource
+) : IRemoteDataSource {
+    suspend fun getRemoteClientToken(): ClientToken {
+        return processApiResponse {
+            tokenService.getClientToken(BuildConfig.DOUYIN_KEY, BuildConfig.DOUYIN_SECRET)
+        }
+    }
+}
 
 class AccountLocalDataSource @Inject constructor(
     @ApplicationContext context: Context
 ) : ILocalDataSource {
     val secureSharedPref = context.secureSharedPref
+
+    fun getLocalClientToken(): ClientToken? {
+        return secureSharedPref.getString(KEY_CLIENT_TOKEN, null)?.fromJson()
+    }
+
+    fun saveLocalClientToken(clientToken: ClientToken) {
+        secureSharedPref.edit {
+            putString(KEY_CLIENT_TOKEN, clientToken.toJson())
+        }
+    }
+
 }

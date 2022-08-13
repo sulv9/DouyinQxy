@@ -22,8 +22,12 @@ class RankListFragment : BaseBindFragment<FragmentRankListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rankListAdapter = RankRecyclerAdapter()
-        viewModel.initialize(type) // Fragment可见后才开始初始化数据，通过变量控制初始化次数
         observe(viewModel.rankData, this::showRankView)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.initialize(type) // Fragment可见后才开始初始化数据，通过变量控制初始化次数
     }
 
     private fun showRankView(state: RankViewState) {
