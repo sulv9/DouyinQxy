@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.core.content.edit
 import com.qxy.lib.account.*
 import com.qxy.lib.account.ext.secureSharedPref
+import com.qxy.lib.account.model.AccessToken
 import com.qxy.lib.account.model.ClientToken
+import com.qxy.lib.account.model.RefreshToken
 import com.qxy.lib.account.network.TokenService
 import com.qxy.lib.base.BuildConfig
 import com.qxy.lib.base.base.network.Errors
@@ -31,43 +33,35 @@ class AccountRepository @Inject constructor(
 ) {
 
     suspend fun getClientToken(): String {
-        val localClientToken = localDataSource.getLocalClientToken()
+        val localClientToken = localDataSource.localClientToken
         localClientToken?.let {
             if (!isTokenExpire(it.responseTime, it.expiresIn)) return it.accessToken
         }
         val remoteClientToken = remoteDataSource.getRemoteClientToken()
-        localDataSource.saveLocalClientToken(remoteClientToken.copy(responseTime = System.currentTimeMillis()))
+        localDataSource.localClientToken =
+            remoteClientToken.copy(responseTime = System.currentTimeMillis())
         return remoteClientToken.accessToken
     }
 
     suspend fun getAccessToken(): String {
-        val savedTimestamp =
-            localDataSource.secureSharedPref.getLong(ACCESS_TOKEN_SAVED_TIMESTAMP, 0)
-        val savedAccessToken =
-            localDataSource.secureSharedPref.getString(ACCESS_TOKEN, null)
-        val savedExpire =
-            localDataSource.secureSharedPref.getInt(ACCESS_TOKEN_EXPIRES_IN, 0)
-
-        return if (savedAccessToken != null && !isTokenExpire(savedTimestamp, savedExpire)) {
-            savedAccessToken
-        } else {
-            val authCode = localDataSource.secureSharedPref.getString(USER_AUTH_CODE, "") ?: ""
-            val remote = remoteDataSource.tokenService.getAccessToken(
-                BuildConfig.DOUYIN_SECRET, authCode, BuildConfig.DOUYIN_KEY
-            )
-            remote.data?.let { data ->
-                localDataSource.secureSharedPref.edit {
-                    putLong(ACCESS_TOKEN_SAVED_TIMESTAMP, System.currentTimeMillis())
-                    putString(ACCESS_TOKEN, data.accessToken)
-                    putInt(ACCESS_TOKEN_EXPIRES_IN, data.expiresIn)
-                }
-                data.accessToken
-            } ?: throw IllegalStateException("access token must not be null.")
+        val localAccessToken = localDataSource.localAccessToken
+        localAccessToken?.let {
+            if (!isTokenExpire(it.responseTime, it.expiresIn)) {
+                return it.accessToken
+            }
+            if (isTokenExpire(it.responseTime, it.refreshExpiresIn)) {
+                val newRefreshToken = remoteDataSource.getRemoteRefreshToken(it.refreshToken)
+                val newAccessToken =
+                    remoteDataSource.refreshRemoteAccessToken(newRefreshToken.refreshToken)
+                localDataSource.localAccessToken =
+                    newAccessToken.copy(responseTime = System.currentTimeMillis())
+                return newAccessToken.accessToken
+            }
         }
-    }
-
-    private fun isTokenExpire(savedTimestamp: Long, expireIn: Int): Boolean {
-        return System.currentTimeMillis() - savedTimestamp > expireIn * 1000
+        val remoteAccessToken = remoteDataSource.getRemoteAccessToken()
+        localDataSource.localAccessToken =
+            remoteAccessToken.copy(responseTime = System.currentTimeMillis())
+        return remoteAccessToken.accessToken
     }
 
     private fun isTokenExpire(savedTimestamp: Long, expireIn: Long): Boolean {
@@ -77,11 +71,34 @@ class AccountRepository @Inject constructor(
 }
 
 class AccountRemoteDataSource @Inject constructor(
-    val tokenService: TokenService
+    @ApplicationContext context: Context,
+    private val tokenService: TokenService
 ) : IRemoteDataSource {
+
+    private val secureSharedPref = context.secureSharedPref
+
     suspend fun getRemoteClientToken(): ClientToken {
         return processApiResponse {
             tokenService.getClientToken(BuildConfig.DOUYIN_KEY, BuildConfig.DOUYIN_SECRET)
+        }
+    }
+
+    suspend fun getRemoteAccessToken(): AccessToken {
+        val authCode = secureSharedPref.getString(USER_AUTH_CODE, "") ?: ""
+        return processApiResponse {
+            tokenService.getAccessToken(BuildConfig.DOUYIN_SECRET, authCode, BuildConfig.DOUYIN_KEY)
+        }
+    }
+
+    suspend fun getRemoteRefreshToken(refreshToken: String): RefreshToken {
+        return processApiResponse {
+            tokenService.getRefreshToken(BuildConfig.DOUYIN_KEY, refreshToken)
+        }
+    }
+
+    suspend fun refreshRemoteAccessToken(refreshToken: String): AccessToken {
+        return processApiResponse {
+            tokenService.refreshAccessToken(BuildConfig.DOUYIN_KEY, refreshToken)
         }
     }
 }
@@ -89,16 +106,27 @@ class AccountRemoteDataSource @Inject constructor(
 class AccountLocalDataSource @Inject constructor(
     @ApplicationContext context: Context
 ) : ILocalDataSource {
-    val secureSharedPref = context.secureSharedPref
+    private val secureSharedPref = context.secureSharedPref
 
-    fun getLocalClientToken(): ClientToken? {
-        return secureSharedPref.getString(KEY_CLIENT_TOKEN, null)?.fromJson()
-    }
-
-    fun saveLocalClientToken(clientToken: ClientToken) {
-        secureSharedPref.edit {
-            putString(KEY_CLIENT_TOKEN, clientToken.toJson())
+    @set:JvmName("saveLocalClientToken")
+    var localClientToken: ClientToken?
+        get() {
+            return secureSharedPref.getString(KEY_CLIENT_TOKEN, null)?.fromJson()
         }
-    }
+        set(value) {
+            secureSharedPref.edit {
+                putString(KEY_CLIENT_TOKEN, value!!.toJson())
+            }
+        }
 
+    @set:JvmName("saveLocalAccessToken")
+    var localAccessToken: AccessToken?
+        get() {
+            return secureSharedPref.getString(KEY_ACCESS_TOKEN, null)?.fromJson()
+        }
+        set(value) {
+            secureSharedPref.edit {
+                putString(KEY_ACCESS_TOKEN, value!!.toJson())
+            }
+        }
 }

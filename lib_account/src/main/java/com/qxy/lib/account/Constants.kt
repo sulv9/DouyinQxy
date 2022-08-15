@@ -3,12 +3,15 @@ package com.qxy.lib.account
 const val USER_IS_LOGIN = "secure_user_is_login"
 const val USER_AUTH_CODE = "secure_user_auth_code"
 
+const val KEY_ACCESS_TOKEN = "key_access_token"
 const val ACCESS_TOKEN = "access_token"
 const val ACCESS_TOKEN_SAVED_TIMESTAMP = "access_token_saved_timestamp"
 const val ACCESS_TOKEN_EXPIRES_IN = "access_token_expires_in"
 
 const val KEY_CLIENT_TOKEN = "key_client_token"
 const val KEY_CLIENT_TOKEN_SAVE_TIME = "key_client_token_save_time"
+
+const val KEY_REFRESH_TOKEN = "key_refresh_token"
 
 const val video_scope = "im.share,aweme.share,h5.share,aweme.capture,video.data,video.list," +
         "video.create,video.delete,video.search,video.search.comment,"

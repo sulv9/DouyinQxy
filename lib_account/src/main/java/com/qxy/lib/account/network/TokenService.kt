@@ -1,7 +1,8 @@
 package com.qxy.lib.account.network
 
 import com.qxy.lib.account.model.ClientToken
-import com.qxy.lib.account.model.TokenModel
+import com.qxy.lib.account.model.AccessToken
+import com.qxy.lib.account.model.RefreshToken
 import com.qxy.lib.common.network.ApiResponse
 import retrofit2.http.*
 
@@ -20,7 +21,7 @@ interface TokenService {
         @Field("code") code: String,
         @Field("client_key") clientKey: String,
         @Field("grant_type") grantType: String = "authorization_code"
-    ): ApiResponse<TokenModel>
+    ): ApiResponse<AccessToken>
 
     @FormUrlEncoded
     @POST("oauth/client_token")
@@ -30,4 +31,19 @@ interface TokenService {
         @Field("grant_type") grantType: String = "client_credential",
     ): ApiResponse<ClientToken>
 
+    @FormUrlEncoded
+    @Headers("Content-Type: multipart/form-data")
+    @POST("oauth/renew_refresh_token")
+    suspend fun getRefreshToken(
+        @Field("client_key") clientKey: String,
+        @Field("refresh_token") refreshToken: String
+    ): ApiResponse<RefreshToken>
+
+    @POST("oauth/refresh_token")
+    @FormUrlEncoded
+    suspend fun refreshAccessToken(
+        @Field("client_key") clientKey: String,
+        @Field("refresh_token") refreshToken: String,
+        @Field("grant_type") grantType: String = "refresh_token"
+    ): ApiResponse<AccessToken>
 }
