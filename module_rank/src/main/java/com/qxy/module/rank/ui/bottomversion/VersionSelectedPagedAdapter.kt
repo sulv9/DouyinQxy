@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.qxy.module.rank.R
 import com.qxy.module.rank.data.model.RankVersionItem
 
 class VersionSelectedPagedAdapter(
     private val onItemClickListener: (view: View) -> Unit,
-) : PagingDataAdapter<RankVersionItem, VersionSelectedPagedAdapter.ViewHolder>(
+) : ListAdapter<RankVersionItem, VersionSelectedPagedAdapter.ViewHolder>(
     VersionSelectedDiffCallback
 ) {
     class ViewHolder(
@@ -31,7 +31,7 @@ class VersionSelectedPagedAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
+        holder.bind(getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
