@@ -4,4 +4,7 @@
     <string name="rank_title_movie">电影榜</string>
     <string name="rank_title_tv">电视剧榜</string>
     <string name="rank_title_show">综艺榜</string>
+    <string name="rank_bottom_tv_text_cancel">取消</string>
+    <string name="rank_list_tv_text_rule">榜单规则</string>
+    <string name="rank_bottom_tv_text_confirm">完成</string>
 </resources>

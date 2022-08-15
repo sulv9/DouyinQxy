@@ -11,6 +11,8 @@ sealed class Errors(message: String) : RuntimeException(message) {
     object NetworkError : Errors("网络请求异常")
 
     object EmptyResultError : Errors("结果为空")
+
+    data class UnknownError(val throwable: Throwable) : Errors("未知异常 $throwable")
 }
 
 /**

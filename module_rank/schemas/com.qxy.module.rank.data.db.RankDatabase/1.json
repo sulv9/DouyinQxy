@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0ffaa9fbe8f674f54731da92d743d8d8",
+    "identityHash": "968ec44ed48fdaee04efa0ea2bdc5a74",
     "entities": [
       {
         "tableName": "rank_item",
@@ -119,12 +119,56 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "rank_version_item",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`active_time` TEXT NOT NULL, `end_time` TEXT NOT NULL, `start_time` TEXT NOT NULL, `type` INTEGER NOT NULL, `version` INTEGER NOT NULL, PRIMARY KEY(`version`))",
+        "fields": [
+          {
+            "fieldPath": "activeTime",
+            "columnName": "active_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endTime",
+            "columnName": "end_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "start_time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "version"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0ffaa9fbe8f674f54731da92d743d8d8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '968ec44ed48fdaee04efa0ea2bdc5a74')"
     ]
   }
 }

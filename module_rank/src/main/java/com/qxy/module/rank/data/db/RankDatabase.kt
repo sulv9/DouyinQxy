@@ -5,10 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.qxy.module.rank.data.model.RankItem
+import com.qxy.module.rank.data.model.RankVersionItem
 
-@Database(entities = [RankItem::class], version = 1)
+@Database(entities = [RankItem::class, RankVersionItem::class], version = 1)
 abstract class RankDatabase : RoomDatabase() {
     abstract fun rankDao(): RankDao
+    abstract fun rankVersionDao(): RankVersionDao
 
     companion object {
         private const val DATABASE_NAME = "rank-db"
