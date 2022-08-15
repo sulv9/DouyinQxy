@@ -12,15 +12,15 @@
         android:visibility="gone" />
 
     <include
-        android:id="@+id/rank_list_page_load_fail"
-        layout="@layout/common_page_load_fail"
+        android:id="@+id/rank_list_page_network_error"
+        layout="@layout/common_page_network_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
 
     <include
-        android:id="@+id/rank_list_page_empty_error"
-        layout="@layout/common_page_empty_error"
+        android:id="@+id/rank_list_page_load_error"
+        layout="@layout/common_page_load_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
@@ -32,7 +32,8 @@
         android:paddingStart="8dp"
         android:paddingTop="12dp"
         android:paddingEnd="8dp"
-        android:paddingBottom="12dp">
+        android:paddingBottom="12dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/rank_list_tv_info"
@@ -45,8 +46,8 @@
             android:id="@+id/rank_list_tv_rank_rule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="榜单规则"
-            android:textColor="@color/color_light_red"
+            android:text="@string/rank_list_tv_text_rule"
+            android:textColor="@color/red_500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

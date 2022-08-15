@@ -14,7 +14,7 @@ data class RankData(
 ) : ApiStatus()
 
 @Entity(tableName = "rank_item")
-@TypeConverters(ListConverter::class)
+@TypeConverters(StringListConverter::class)
 data class RankItem(
     val actors: List<String>, // 演员
     val areas: List<String>, // 地区
@@ -50,7 +50,7 @@ data class RankItem(
     val version: Int?
 )
 
-class ListConverter {
+class StringListConverter {
     @TypeConverter
     fun listToString(data: List<String>): String = data.toJson()
 
