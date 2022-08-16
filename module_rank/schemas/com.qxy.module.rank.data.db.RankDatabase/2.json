@@ -1,30 +1,30 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "65d1d1ea8405703b16f59308a61be850",
+    "version": 2,
+    "identityHash": "111e85468314231635ce0415f42e1226",
     "entities": [
       {
         "tableName": "rank_item",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`actors` TEXT NOT NULL, `areas` TEXT NOT NULL, `directors` TEXT NOT NULL, `discussion_hot` INTEGER NOT NULL, `hot` INTEGER NOT NULL, `id` TEXT NOT NULL, `influence_hot` INTEGER NOT NULL, `maoyan_id` TEXT NOT NULL, `name` TEXT NOT NULL, `name_en` TEXT NOT NULL, `poster` TEXT NOT NULL, `release_date` TEXT NOT NULL, `search_hot` INTEGER NOT NULL, `tags` TEXT NOT NULL, `topic_hot` INTEGER NOT NULL, `type` INTEGER NOT NULL, `version` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`actors` TEXT, `areas` TEXT, `directors` TEXT, `discussion_hot` INTEGER NOT NULL, `hot` INTEGER NOT NULL, `id` TEXT NOT NULL, `influence_hot` INTEGER NOT NULL, `maoyan_id` TEXT NOT NULL, `name` TEXT NOT NULL, `name_en` TEXT NOT NULL, `poster` TEXT NOT NULL, `release_date` TEXT NOT NULL, `search_hot` INTEGER NOT NULL, `tags` TEXT, `topic_hot` INTEGER NOT NULL, `type` INTEGER NOT NULL, `version` INTEGER, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "actors",
             "columnName": "actors",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "areas",
             "columnName": "areas",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "directors",
             "columnName": "directors",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "discussionHot",
@@ -90,7 +90,7 @@
             "fieldPath": "tags",
             "columnName": "tags",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "topicHot",
@@ -108,7 +108,7 @@
             "fieldPath": "version",
             "columnName": "version",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -168,7 +168,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '65d1d1ea8405703b16f59308a61be850')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '111e85468314231635ce0415f42e1226')"
     ]
   }
 }

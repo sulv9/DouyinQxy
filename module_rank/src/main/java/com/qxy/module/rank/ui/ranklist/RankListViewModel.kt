@@ -1,8 +1,6 @@
-package com.qxy.module.rank.ui
+package com.qxy.module.rank.ui.ranklist
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
 import com.qxy.lib.base.base.network.Errors
 import com.qxy.lib.base.base.viewmodel.BaseViewModel
 import com.qxy.module.rank.data.repo.RankRepository
@@ -12,7 +10,7 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
-class RankViewModel @Inject constructor(
+class RankListViewModel @Inject constructor(
     private val repo: RankRepository,
 ) : BaseViewModel() {
 
@@ -24,24 +22,24 @@ class RankViewModel @Inject constructor(
         getRankData(type)
     }
 
-    private val _rankData = MutableLiveData<RankViewState>()
+    private val _rankData = MutableLiveData<RankListViewState>()
     val rankData get() = _rankData
 
     /**
      * 在ViewModel中对Flow进行处理
      */
     fun getRankData(type: Int, version: Int? = null) {
-        val state = RankViewState(isLoading = true)
+        val state = RankListViewState(isLoading = true)
         repo.getRankFlow(type, version)
-            .map { state.copy(rankList = it) }
+            .map { state.copy(rankList = it, isLoading = false) }
             .flowOn(Dispatchers.IO)
             .onStart { emit(state) }
             .catch {
                 when (it) {
-                    is Errors.ApiError -> emit(state.copy(apiError = it))
-                    is Errors.NetworkError -> emit(state.copy(networkError = it))
-                    is Errors.EmptyResultError -> emit(state.copy(emptyError = it))
-                    else -> emit(state.copy(unknownError = Errors.UnknownError(it)))
+                    is Errors.ApiError -> emit(state.copy(apiError = it, isLoading = false))
+                    is Errors.NetworkError -> emit(state.copy(networkError = it, isLoading = false))
+                    is Errors.EmptyResultError -> emit(state.copy(emptyError = it, isLoading = false))
+                    else -> emit(state.copy(unknownError = Errors.UnknownError(it), isLoading = false))
                 }
             }.launchCollect { _rankData.value = it }
     }

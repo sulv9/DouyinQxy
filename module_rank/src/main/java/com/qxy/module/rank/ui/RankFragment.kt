@@ -4,18 +4,16 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.tabs.TabLayoutMediator
 import com.qxy.lib.base.base.view.adapter.SimpleViewPagerAdapter
 import com.qxy.lib.base.base.view.fragment.BaseBindFragment
-import com.qxy.lib.base.ext.dp
-import com.qxy.lib.base.ext.getStatusBarHeight
 import com.qxy.lib.base.ext.setDarkStatusBar
 import com.qxy.lib.common.config.RouteTable
 import com.qxy.module.rank.R
 import com.qxy.module.rank.databinding.FragmentRankBinding
+import com.qxy.module.rank.ui.ranklist.RankListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @Route(path = RouteTable.RANK_ENTRY)
@@ -60,11 +58,11 @@ class RankFragment : BaseBindFragment<FragmentRankBinding>() {
         binding.rankMlParent.systemUiVisibility = (SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
         // 设置按钮偏移
-        with(binding.rankTvChangeRank) {
-            val params = layoutParams as ConstraintLayout.LayoutParams
-            params.topMargin = requireActivity().getStatusBarHeight() + 10.dp
-            layoutParams = params
-        }
+//        with(binding.rankTvChangeRank) {
+//            val params = layoutParams as ConstraintLayout.LayoutParams
+//            params.topMargin = requireActivity().getStatusBarHeight() + 10.dp
+//            layoutParams = params
+//        }
     }
 
     private fun setupStatusBar() {

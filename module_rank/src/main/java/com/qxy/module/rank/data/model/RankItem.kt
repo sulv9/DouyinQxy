@@ -16,9 +16,9 @@ data class RankData(
 @Entity(tableName = "rank_item")
 @TypeConverters(StringListConverter::class)
 data class RankItem(
-    val actors: List<String>, // 演员
-    val areas: List<String>, // 地区
-    val directors: List<String>, // 导演
+    val actors: List<String>?, // 演员
+    val areas: List<String>?, // 地区
+    val directors: List<String>?, // 导演
     @SerializedName("discussion_hot")
     @ColumnInfo(name = "discussion_hot")
     val discussionHot: Long, // 视频讨论度
@@ -42,18 +42,18 @@ data class RankItem(
     @SerializedName("search_hot")
     @ColumnInfo(name = "search_hot")
     val searchHot: Long, // 搜索指数
-    val tags: List<String>, // 类型标签
+    val tags: List<String>?, // 类型标签
     @SerializedName("topic_hot")
     @ColumnInfo(name = "topic_hot")
     val topicHot: Long, // 话题热度值
     val type: Int, // 类型：1=电影 2=电视剧 3=综艺
-    val version: Int?
+    val version: Int?,
 )
 
 class StringListConverter {
     @TypeConverter
-    fun listToString(data: List<String>): String = data.toJson()
+    fun listToString(data: List<String>?): String = data.toJson()
 
     @TypeConverter
-    fun stringToList(value: String): List<String> = value.fromJson()
+    fun stringToList(value: String): List<String>? = value.fromJson()
 }

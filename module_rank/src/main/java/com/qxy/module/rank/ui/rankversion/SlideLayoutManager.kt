@@ -1,4 +1,4 @@
-package com.qxy.module.rank.ui.bottomversion
+package com.qxy.module.rank.ui.rankversion
 
 import android.content.Context
 import androidx.core.content.ContextCompat
