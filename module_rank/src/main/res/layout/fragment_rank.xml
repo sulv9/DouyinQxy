@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rank_ml_parent"
     android:layout_width="match_parent"
@@ -16,20 +17,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/rank_tv_change_rank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/common_selector_view_with_gray_border"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="8dp"
-        android:text="@string/main_tv_text_change_rank"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <TextView-->
+<!--        android:id="@+id/rank_tv_change_rank"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:background="@drawable/common_selector_view_with_gray_border"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
+<!--        android:padding="8dp"-->
+<!--        android:text="@string/main_tv_text_change_rank"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/rank_tl"

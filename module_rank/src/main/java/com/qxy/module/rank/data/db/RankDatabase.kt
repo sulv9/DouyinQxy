@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.qxy.module.rank.data.model.RankItem
 import com.qxy.module.rank.data.model.RankVersionItem
 
-@Database(entities = [RankItem::class, RankVersionItem::class], version = 1)
+@Database(entities = [RankItem::class, RankVersionItem::class], version = 3)
 abstract class RankDatabase : RoomDatabase() {
     abstract fun rankDao(): RankDao
     abstract fun rankVersionDao(): RankVersionDao
@@ -25,7 +25,8 @@ abstract class RankDatabase : RoomDatabase() {
         }
 
         private fun buildRankDatabase(context: Context): RankDatabase {
-            return Room.databaseBuilder(context, RankDatabase::class.java, DATABASE_NAME).build()
+            return Room.databaseBuilder(context, RankDatabase::class.java, DATABASE_NAME)
+                .fallbackToDestructiveMigration().build()
         }
     }
 }

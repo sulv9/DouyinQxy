@@ -14,4 +14,4 @@ fun <T> T.toJson(): String = GsonUtil.INSTANCE.toJson(this)
 /**
  * 将json字符串转换为指定类型的对象
  */
-inline fun <reified T> String.fromJson(): T? = GsonUtil.INSTANCE.fromJson(this, T::class.java)
+inline fun <reified T> String.fromJson(): T = GsonUtil.INSTANCE.fromJson(this, T::class.java)

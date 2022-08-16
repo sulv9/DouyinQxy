@@ -1,4 +1,4 @@
-package com.qxy.module.rank.ui
+package com.qxy.module.rank.ui.ranklist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -38,7 +38,7 @@ class RankRecyclerAdapter :
                     .into(this)
             }
             binding.rankItemTvName.text = rankItem.name
-            binding.rankItemTvTags.text = rankItem.tags.joinToString(" / ")
+            binding.rankItemTvTags.text = rankItem.tags?.joinToString(" / ") ?: ""
             binding.rankItemTvReleaseDate.text = rankItem.releaseDate + " 上映"
             binding.rankItemTvHot.text = "🔥 ${rankItem.hot / 1e4}万"
         }

@@ -1,4 +1,4 @@
-package com.qxy.module.rank.ui.bottomversion
+package com.qxy.module.rank.ui.rankversion
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.qxy.lib.base.ext.trueHeight
 import com.qxy.module.rank.R
 
-class BottomVersionSelectedDialogFragment : BottomSheetDialogFragment() {
+class RankVersionDialogFragment : BottomSheetDialogFragment() {
 
     private var mSelectedVersion = 0
 
