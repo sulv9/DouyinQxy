@@ -2,17 +2,20 @@ package com.qxy.module.rank.data.repo
 
 import androidx.room.withTransaction
 import com.qxy.api.account.IAccountService
-import com.qxy.lib.base.base.network.Errors
+import com.qxy.lib.base.base.network.*
 import com.qxy.lib.base.base.repository.BaseRepositoryBoth
 import com.qxy.lib.base.base.repository.ILocalDataSource
 import com.qxy.lib.base.base.repository.IRemoteDataSource
-import com.qxy.lib.base.ext.AbortFlowWrapper
+import com.qxy.lib.base.ext.log
 import com.qxy.lib.base.util.ARouterUtil
 import com.qxy.lib.common.network.processApiResponse
 import com.qxy.module.rank.data.api.RankService
 import com.qxy.module.rank.data.db.RankDatabase
 import com.qxy.module.rank.data.model.RankItem
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flattenMerge
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class RankRepository @Inject constructor(
@@ -25,31 +28,60 @@ class RankRepository @Inject constructor(
     /**
      * repo层对flow进行合流
      */
-    fun getRankFlow(type: Int, version: Int? = null): Flow<List<RankItem>> {
+    fun getRankListFlow(type: Int, version: Int? = null): Flow<Results<List<RankItem>>> {
         // 本地数据流
         val localFlow = flow {
-            val rankLocal = localDataSource.getLocalRankData(type, version ?: -1)
-            // 本地数据先加载完，不截断流
-            emit(AbortFlowWrapper(rankLocal, false))
+            val localResult = processResults {
+                // 加载本地数据
+                val localData = localDataSource.getLocalRankData(type, version ?: -1)
+                localData
+            }
+            emit(localResult.ifEmpty { Results.none() })
         }
         // 远程数据流
         val remoteFlow = flow {
-            val rankRemote = remoteDataSource.getRemoteRankData(type, version)
-                // version为空则为其赋值为-1
-                .map { it.copy(version = version ?: -1) }
-            // 保存网络请求结果
-            localDataSource.saveLocalRankData(rankRemote)
-            // 网络数据加载完后不再接收本地数据流
-            emit(AbortFlowWrapper(rankRemote, true))
+            val remoteResult = processResults {
+                // 加载远程数据
+                val remoteData = remoteDataSource.getRemoteRankData(type, version)
+                    // version为空则为其赋值为-1
+                    .map { it.copy(version = version ?: -1) }
+                // 保存网络请求结果
+                localDataSource.saveLocalRankData(remoteData)
+                // 查询数据库数据
+                localDataSource.getLocalRankData(type, version ?: -1)
+                    .ifEmpty { throw Errors.EmptyResultError }
+            }
+            emit(remoteResult)
         }
         return flowOf(localFlow, remoteFlow)
             .flattenMerge()
-            .transformWhile {
-                // 发送数据
-                emit(it.data)
-                // [it.abort]为true时截断流，不再发射
-                !it.abort
-            }
+    }
+
+    /**
+     * 只从网络请求数据，一般用于重新返回界面时调用
+     */
+    fun getRankListFlowFromRemote(type: Int, version: Int? = null) = flow {
+        val remoteResult = processResults {
+            // 加载远程数据
+            val remoteData = remoteDataSource.getRemoteRankData(type, version)
+                // version为空则为其赋值为-1
+                .map { it.copy(version = version ?: -1) }
+            // 保存网络请求结果
+            localDataSource.saveLocalRankData(remoteData)
+            // 查询数据库数据
+            localDataSource.getLocalRankData(type, version ?: -1)
+                .ifEmpty {
+                    log { "getLocal Empty" }
+                    throw Errors.EmptyResultError }
+        }
+        emit(remoteResult)
+    }
+
+    /**
+     * 获取榜单版本flow
+     */
+    fun getRankVersionFlow(type: Int) {
+
     }
 }
 
@@ -63,7 +95,7 @@ class RankRemoteDataSource @Inject constructor(
         val token = ARouterUtil.getService(IAccountService::class).getClientToken()
         return processApiResponse {
             rankService.getRankItem(token, type, version)
-        }.rankList ?: throw Errors.EmptyResultError
+        }.rankList ?: throw Errors.EmptyResultError.also { log { "getRemote Empty" } }
     }
 }
 
@@ -77,6 +109,7 @@ class RankLocalDataSource @Inject constructor(
     suspend fun getLocalRankData(type: Int, version: Int): List<RankItem> {
         return db.withTransaction {
             db.rankDao().getRankData(type, version)
+                .also { if (it.isEmpty()) throw Errors.EmptyResultError }
         }
     }
 

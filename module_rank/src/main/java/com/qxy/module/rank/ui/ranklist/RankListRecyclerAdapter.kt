@@ -12,6 +12,7 @@ import com.qxy.lib.base.image.GlideApp
 import com.qxy.lib.common.R
 import com.qxy.module.rank.data.model.RankItem
 import com.qxy.module.rank.databinding.ItemRecyclerRankBinding
+import kotlin.math.roundToInt
 
 class RankRecyclerAdapter :
     ListAdapter<RankItem, RankRecyclerAdapter.RankViewHolder>(RankListDiffCallback()) {
@@ -40,7 +41,7 @@ class RankRecyclerAdapter :
             binding.rankItemTvName.text = rankItem.name
             binding.rankItemTvTags.text = rankItem.tags?.joinToString(" / ") ?: ""
             binding.rankItemTvReleaseDate.text = rankItem.releaseDate + " 上映"
-            binding.rankItemTvHot.text = "🔥 ${rankItem.hot / 1e4}万"
+            binding.rankItemTvHot.text = "🔥 ${(rankItem.hot / 1e3).roundToInt() / 10.0}万"
         }
     }
 

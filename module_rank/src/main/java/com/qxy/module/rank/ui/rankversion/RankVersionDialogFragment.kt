@@ -12,11 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.qxy.lib.base.ext.trueHeight
+import com.qxy.lib.base.util.args
 import com.qxy.module.rank.R
 
-class RankVersionDialogFragment : BottomSheetDialogFragment() {
+class RankVersionDialogFragment private constructor() : BottomSheetDialogFragment() {
 
     private var mSelectedVersion = 0
+
+    private var type: Int by args()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +28,7 @@ class RankVersionDialogFragment : BottomSheetDialogFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_dialog_version_selected, container, false)
         view.visibility = View.INVISIBLE
+        setStyle(STYLE_NORMAL, R.style.BottomSheetDialog)
         return view
     }
 
@@ -52,18 +56,21 @@ class RankVersionDialogFragment : BottomSheetDialogFragment() {
             itemView?.let {
                 val itemHeight = it.trueHeight
 
+                // 动态改变RecyclerView高度，但是会在加载布局时闪一下
                 val recyclerHeight = itemHeight * COUNT_IN_SCREEN
-                val layoutParams = recycler.layoutParams
-                layoutParams.height = recyclerHeight
-                recycler.layoutParams = layoutParams
+//                val layoutParams = recycler.layoutParams
+//                layoutParams.height = recyclerHeight
+//                recycler.layoutParams = layoutParams
 
+                // 让第一个和最后一个数据居中
                 val padding = (recyclerHeight - itemHeight) / 2
                 recycler.setPadding(0, padding, 0, padding)
                 recycler.scrollToPosition(0)
 
-                val selectedBgLp = selectedBg.layoutParams as FrameLayout.LayoutParams
-                selectedBgLp.height = itemHeight
-                selectedBg.layoutParams = selectedBgLp
+                // 动态设置选择框高度
+//                val selectedBgLp = selectedBg.layoutParams as FrameLayout.LayoutParams
+//                selectedBgLp.height = itemHeight
+//                selectedBg.layoutParams = selectedBgLp
             }
         }
 
@@ -71,7 +78,10 @@ class RankVersionDialogFragment : BottomSheetDialogFragment() {
         behavior.isDraggable = false
 
         confirm.setOnClickListener {
-            setFragmentResult(VERSION_REQUEST_KEY, bundleOf(VERSION_SELECTED to mSelectedVersion))
+            setFragmentResult(
+                REQUEST_KEY_VERSION,
+                bundleOf(RESULT_VERSION_SELECTED to mSelectedVersion)
+            )
             dismiss()
         }
         cancel.setOnClickListener {
@@ -81,8 +91,12 @@ class RankVersionDialogFragment : BottomSheetDialogFragment() {
 
     companion object {
         const val TAG = "ModalBottomSheet"
-        const val VERSION_REQUEST_KEY = "VersionRequestKey"
-        const val VERSION_SELECTED = "VersionSelected"
+        const val REQUEST_KEY_VERSION = "VersionRequestKey"
+        const val RESULT_VERSION_SELECTED = "VersionSelected"
         private const val COUNT_IN_SCREEN = 3
+
+        fun newInstance(type: Int) = RankVersionDialogFragment().apply {
+            this.type = type
+        }
     }
 }

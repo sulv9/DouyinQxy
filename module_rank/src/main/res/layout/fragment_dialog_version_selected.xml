@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/shape_bg_bottom_sheet">
 
     <TextView
         android:id="@+id/rank_bottom_tv_cancel"
@@ -40,14 +43,16 @@
             android:layout_width="match_parent"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_height="10dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="74dp"
             android:background="@drawable/shape_bg_rank_bottom_selected" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rank_bottom_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false" />
+            android:layout_height="224dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_recycler_rank_version" />
 
     </FrameLayout>
 
