@@ -1,7 +1,7 @@
 package com.qxy.lib.base.ext
 
-import android.content.Context
 import android.widget.Toast
+import com.qxy.lib.base.BaseApp
 
-fun Context.toast(msg: String, time: Int = Toast.LENGTH_SHORT) =
-    Toast.makeText(this, msg, time).show()
+fun toast(msg: String, time: Int = Toast.LENGTH_SHORT) =
+    Toast.makeText(BaseApp.context, msg, time).show()

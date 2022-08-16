@@ -1,13 +1,21 @@
 package com.qxy.module.rank.ui.ranklist
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.distinctUntilChanged
 import com.qxy.lib.base.base.network.Errors
+import com.qxy.lib.base.base.network.Results
 import com.qxy.lib.base.base.viewmodel.BaseViewModel
+import com.qxy.module.rank.data.model.RankItem
 import com.qxy.module.rank.data.repo.RankRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
+
+private const val MIN_TIME_LOADING = 500L // 加载条显示的最小时间
 
 @HiltViewModel
 class RankListViewModel @Inject constructor(
@@ -16,32 +24,49 @@ class RankListViewModel @Inject constructor(
 
     private var isInitialized = false
 
+    private val _rankData = MutableStateFlow<Results<List<RankItem>>>(Results.loading())
+    val rankData get() = _rankData.asLiveData().distinctUntilChanged()
+
+    private val viewState = MutableStateFlow(RankListViewState.initial())
+
     fun initialize(type: Int) {
-        if (isInitialized) return
+        if (isInitialized) {
+            // 未请求成功返回该界面时，自动重新请求网络数据
+            if (isRemoteRequestFail()) fetchRankDataFromRemote(type)
+            return
+        }
         isInitialized = true
-        getRankData(type)
+        viewState.update { it.copy(type = type) }
+        fetchRankData(type)
     }
 
-    private val _rankData = MutableLiveData<RankListViewState>()
-    val rankData get() = _rankData
+    fun updateVersion(version: Int?) {
+        viewState.update { it.copy(version = version) }
+    }
 
     /**
      * 在ViewModel中对Flow进行处理
      */
-    fun getRankData(type: Int, version: Int? = null) {
-        val state = RankListViewState(isLoading = true)
-        repo.getRankFlow(type, version)
-            .map { state.copy(rankList = it, isLoading = false) }
+    fun fetchRankData(type: Int, version: Int? = null) {
+        repo.getRankListFlow(type, version)
             .flowOn(Dispatchers.IO)
-            .onStart { emit(state) }
-            .catch {
-                when (it) {
-                    is Errors.ApiError -> emit(state.copy(apiError = it, isLoading = false))
-                    is Errors.NetworkError -> emit(state.copy(networkError = it, isLoading = false))
-                    is Errors.EmptyResultError -> emit(state.copy(emptyError = it, isLoading = false))
-                    else -> emit(state.copy(unknownError = Errors.UnknownError(it), isLoading = false))
-                }
-            }.launchCollect { _rankData.value = it }
+            .launchCollect { _rankData.value = it }
     }
+
+    /**
+     * 只从网络请求数据
+     */
+    private fun fetchRankDataFromRemote(type: Int, version: Int? = null) {
+        repo.getRankListFlowFromRemote(type, version)
+            .flowOn(Dispatchers.IO)
+            .onStart { emit(Results.loading()) }
+            .launchCollect { _rankData.value = it }
+    }
+
+    /**
+     * 是否网络数据请求失败
+     */
+    private fun isRemoteRequestFail() = _rankData.value.state is Results.State.ERROR
+            && (_rankData.value.state as Results.State.ERROR).errors is Errors.NetworkError
 
 }

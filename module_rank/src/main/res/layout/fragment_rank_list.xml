@@ -12,13 +12,6 @@
         android:visibility="gone" />
 
     <include
-        android:id="@+id/rank_list_page_network_error"
-        layout="@layout/common_page_network_error"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-    <include
         android:id="@+id/rank_list_page_load_error"
         layout="@layout/common_page_load_error"
         android:layout_width="match_parent"
