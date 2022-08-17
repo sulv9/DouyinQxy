@@ -44,7 +44,7 @@ class RankListFragment private constructor() : BaseBindFragment<FragmentRankList
     private fun showRankView(result: Results<List<RankItem>>) {
         when (result.state) {
             is Results.State.LOADING -> {
-                log { ">>>0" }
+//                log { ">>>0" }
                 // 加载中
                 binding.rankListPageLoadError.root.visibility = View.GONE
                 binding.rankListPageLoading.root.visibility = View.VISIBLE
@@ -54,7 +54,7 @@ class RankListFragment private constructor() : BaseBindFragment<FragmentRankList
                 mLastState = Results.State.LOADING
             }
             is Results.State.ERROR -> {
-                log { ">>>1 ${(result.state as Results.State.ERROR).errors}" }
+//                log { ">>>1 ${(result.state as Results.State.ERROR).errors}" }
                 val errorState = result.state as Results.State.ERROR
                 // 获取较高优先级的错误信息
                 val errorMsg = (if (mLastState is Results.State.ERROR
@@ -73,7 +73,7 @@ class RankListFragment private constructor() : BaseBindFragment<FragmentRankList
                 mLastState = Results.State.ERROR(errorState.errors)
             }
             is Results.State.SUCCESS -> {
-                log { ">>>2" }
+//                log { ">>>2" }
                 // 如果请求错误先抛出，则将其以toast形式展示
                 if (mLastState is Results.State.ERROR) {
                     binding.rankListPageLoadError.root.visibility = View.GONE
