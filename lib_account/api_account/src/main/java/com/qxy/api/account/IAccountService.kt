@@ -1,7 +1,6 @@
 package com.qxy.api.account
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import com.alibaba.android.arouter.facade.template.IProvider
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
@@ -75,5 +74,4 @@ interface IAccountService : IProvider {
         // 错误信息
         val errorMsg: String = "",
     )
-
 }
