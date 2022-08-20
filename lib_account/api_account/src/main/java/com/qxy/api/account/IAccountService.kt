@@ -1,5 +1,6 @@
 package com.qxy.api.account
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import com.alibaba.android.arouter.facade.template.IProvider
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
@@ -48,6 +49,10 @@ interface IAccountService : IProvider {
     suspend fun getAccessToken(): String
 
     suspend fun getClientToken(): String
+
+    val openID: String
+
+    val sharedPref: SharedPreferences
 
     /**
      * 登录行为

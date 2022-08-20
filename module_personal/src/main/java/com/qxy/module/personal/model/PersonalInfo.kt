@@ -1,4 +1,4 @@
-package com.qxy.lib.account.model
+package com.qxy.module.personal.model
 
 import com.google.gson.annotations.SerializedName
 import com.qxy.lib.common.network.ApiStatus
