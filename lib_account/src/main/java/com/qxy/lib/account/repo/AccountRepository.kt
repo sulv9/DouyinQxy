@@ -113,6 +113,7 @@ class AccountLocalDataSource @Inject constructor(
     @set:JvmName("saveLocalClientToken")
     var localClientToken: ClientToken?
         get() {
+//            secureSharedPref.edit { putString(KEY_CLIENT_TOKEN, null) }
             return secureSharedPref.getString(KEY_CLIENT_TOKEN, null)?.fromJson()
         }
         set(value) {

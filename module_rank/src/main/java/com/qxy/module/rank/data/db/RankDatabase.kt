@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.qxy.module.rank.data.model.RankItem
-import com.qxy.module.rank.data.model.RankVersionItem
+import com.qxy.module.rank.data.model.RankVersion
 
-@Database(entities = [RankItem::class, RankVersionItem::class], version = 3)
+@Database(entities = [RankItem::class, RankVersion::class], version = 6)
 abstract class RankDatabase : RoomDatabase() {
     abstract fun rankDao(): RankDao
     abstract fun rankVersionDao(): RankVersionDao

@@ -4,15 +4,13 @@ import com.qxy.lib.base.base.network.Results
 import com.qxy.module.rank.data.model.RankItem
 
 data class RankListViewState(
-    val type: Int,
-    val version: Int?,
     val result: Results<List<RankItem>>,
+    val rankInfo: String,
 ) {
     companion object {
         fun initial() = RankListViewState(
-            type = -1,
-            version = null,
-            result = Results.loading(),
+            result = Results.Loading,
+            rankInfo = "",
         )
     }
 }
