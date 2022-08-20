@@ -4,18 +4,13 @@ import android.content.Context
 import androidx.core.content.edit
 import com.qxy.lib.account.KEY_ACCESS_TOKEN
 import com.qxy.lib.account.KEY_CLIENT_TOKEN
-import com.qxy.lib.account.KEY_PERSONAL_INFO
 import com.qxy.lib.account.USER_AUTH_CODE
 import com.qxy.lib.account.ext.secureSharedPref
 import com.qxy.lib.account.model.AccessToken
 import com.qxy.lib.account.model.ClientToken
-import com.qxy.lib.account.model.PersonalInfo
 import com.qxy.lib.account.model.RefreshToken
-import com.qxy.lib.account.network.PersonalService
 import com.qxy.lib.account.network.TokenService
 import com.qxy.lib.base.BuildConfig
-import com.qxy.lib.base.base.network.Results
-import com.qxy.lib.base.base.network.processResults
 import com.qxy.lib.base.base.repository.BaseRepositoryBoth
 import com.qxy.lib.base.base.repository.ILocalDataSource
 import com.qxy.lib.base.base.repository.IRemoteDataSource
@@ -23,10 +18,6 @@ import com.qxy.lib.base.util.fromJson
 import com.qxy.lib.base.util.toJson
 import com.qxy.lib.common.network.processApiResponse
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flattenMerge
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 /**
@@ -74,35 +65,16 @@ class AccountRepository @Inject constructor(
         return remoteAccessToken.accessToken
     }
 
+    val openID: String get() = localDataSource.localAccessToken?.openID ?: ""
+
     private fun isTokenExpire(savedTimestamp: Long, expireIn: Long): Boolean {
         return System.currentTimeMillis() - savedTimestamp > expireIn * 1000
-    }
-
-    suspend fun getPersonalInfo(): Flow<Results<PersonalInfo>> {
-        val localFlow = flow {
-            localDataSource.localPersonalInfo?.let {
-                val localData = processResults { it }
-                emit(localData)
-            } ?: emit(Results.none())
-        }
-        val remoteFlow = flow {
-            val accessToken = getAccessToken()
-            val remoteData = processResults {
-                remoteDataSource.getRemotePersonalInfo(
-                    accessToken,
-                    localDataSource.localAccessToken!!.openID
-                )
-            }
-            emit(remoteData)
-        }
-        return flowOf(localFlow, remoteFlow).flattenMerge()
     }
 }
 
 class AccountRemoteDataSource @Inject constructor(
     @ApplicationContext context: Context,
     private val tokenService: TokenService,
-    private val personalService: PersonalService
 ) : IRemoteDataSource {
 
     private val secureSharedPref = context.secureSharedPref
@@ -131,12 +103,6 @@ class AccountRemoteDataSource @Inject constructor(
             tokenService.refreshAccessToken(BuildConfig.DOUYIN_KEY, refreshToken)
         }
     }
-
-    suspend fun getRemotePersonalInfo(accessToken: String, openID: String): PersonalInfo {
-        return processApiResponse {
-            personalService.getPersonalInfo(accessToken, openID)
-        }
-    }
 }
 
 class AccountLocalDataSource @Inject constructor(
@@ -163,17 +129,6 @@ class AccountLocalDataSource @Inject constructor(
         set(value) {
             secureSharedPref.edit {
                 putString(KEY_ACCESS_TOKEN, value!!.toJson())
-            }
-        }
-
-    @set:JvmName("saveLocalPersonalInfo")
-    var localPersonalInfo: PersonalInfo?
-        get() {
-            return secureSharedPref.getString(KEY_PERSONAL_INFO, null)?.fromJson()
-        }
-        set(value) {
-            secureSharedPref.edit {
-                putString(KEY_PERSONAL_INFO, value!!.toJson())
             }
         }
 }

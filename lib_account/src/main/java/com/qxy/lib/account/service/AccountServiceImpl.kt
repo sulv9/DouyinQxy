@@ -87,6 +87,10 @@ class AccountServiceImpl : IAccountService {
         return repo.getClientToken()
     }
 
+    override val openID: String get() = repo.openID
+
+    override val sharedPref: SharedPreferences get() = secureSharedPref
+
     override fun responseLoginInfo(response: Authorization.Response) {
         if (response.isSuccess) {
             // 登录成功

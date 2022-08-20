@@ -1,7 +1,7 @@
-package com.qxy.lib.account.network
+package com.qxy.module.personal.service
 
-import com.qxy.lib.account.model.PersonalInfo
 import com.qxy.lib.common.network.ApiResponse
+import com.qxy.module.personal.model.PersonalInfo
 import retrofit2.http.*
 
 

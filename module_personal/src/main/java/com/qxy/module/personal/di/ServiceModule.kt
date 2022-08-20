@@ -1,6 +1,6 @@
-package com.qxy.lib.account.di
+package com.qxy.module.personal.di
 
-import com.qxy.lib.account.network.TokenService
+import com.qxy.module.personal.service.PersonalService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,14 +12,14 @@ import javax.inject.Singleton
 /**
  * @project DouyinQxy
  * @author Yenaly Liew
- * @time 2022/08/09 009 16:00
+ * @time 2022/08/21 021 00:42
  */
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
     @Provides
     @Singleton
-    fun provideTokenService(retrofit: Retrofit): TokenService {
+    fun providePersonalService(retrofit: Retrofit): PersonalService {
         return retrofit.create()
     }
 }
