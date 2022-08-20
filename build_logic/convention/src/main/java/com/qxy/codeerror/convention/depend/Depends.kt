@@ -133,6 +133,7 @@ fun Project.dependSecurity() {
 fun Project.dependPaging() {
     dependencies {
         "implementation"(Libs.`paging-runtime`)
+        "implementation"(Libs.`room-paging`)
     }
 }
 

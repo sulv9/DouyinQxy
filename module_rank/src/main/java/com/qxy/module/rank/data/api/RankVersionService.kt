@@ -13,8 +13,8 @@ interface RankVersionService {
     @GET("discovery/ent/rank/version")
     suspend fun getRankVersions(
         @Header("access-token") accessToken: String,
-        @Query("cursor") cursor: Long = 0,
-        @Query("count") count: Long,
+        @Query("cursor") cursor: Int = 0,
+        @Query("count") count: Int,
         @Query("type") type: Int
     ): ApiResponse<RankVersion>
 

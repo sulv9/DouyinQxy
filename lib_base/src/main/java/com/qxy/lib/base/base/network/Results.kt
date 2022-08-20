@@ -1,44 +1,50 @@
 package com.qxy.lib.base.base.network
 
-data class Results<out T>(
-    val state: State,
-    val data: T?,
-) {
-    sealed class State {
-        object LOADING : State()
-        object SUCCESS : State()
-        object NONE: State()
-        data class ERROR(val errors: Errors) : State()
-    }
+sealed class Results<out T> {
 
-    companion object {
-        fun loading() = Results(State.LOADING, null)
+    data class Success<out T>(val value: T) : Results<T>()
 
-        fun <T> success(data: T) = Results(State.SUCCESS, data)
+    data class Failure(val errors: Errors) : Results<Nothing>()
 
-        fun error(errors: Errors) = Results(State.ERROR(errors), null)
+    object Loading : Results<Nothing>()
 
-        fun none() = Results(State.NONE, null)
-    }
+    object None : Results<Nothing>()
+
+    data class LastResult<out T>(val value: Results<T>): Results<T>()
+
 }
 
 inline fun <T> processResults(block: () -> T): Results<T> {
     return try {
-        Results.success(block.invoke())
-    } catch (e: Exception) {
-        Results.error(
-            when(e) {
-                is Errors.ApiError -> e
-                is Errors.NetworkError -> e
-                is Errors.EmptyResultError -> e
-                else -> Errors.UnknownError(e)
-            }
-        )
+        Results.Success(block.invoke())
+    } catch (e: Errors) {
+        Results.Failure(e)
     }
 }
 
-inline fun <T> Results<T>.ifSuccess(block: Results<T>.() -> Results<T>) =
-    if (this.state is Results.State.SUCCESS) block(this) else this
+inline fun <T> Results<T>.whenSuccess(success: (T) -> Unit) {
+    if (this is Results.Success) {
+        success(value)
+    }
+}
+
+inline fun <T> Results<T>.whenFailure(failure: (Errors) -> Unit) {
+    if (this is Results.Failure) {
+        failure(errors)
+    }
+}
+
+inline fun <T> Results<T>.whenLoading(loading: () -> Unit) {
+    if (this is Results.Loading) {
+        loading()
+    }
+}
+
+inline fun <T> Results<T>.whenNone(none: () -> Unit) {
+    if (this is Results.None) {
+        none()
+    }
+}
 
 inline fun <T> Results<T>.ifEmpty(block: () -> Results<T>): Results<T> where T : Collection<*> =
-    if (data != null && data.isEmpty()) block() else this
+    if (this is Results.Success && this.value.isEmpty()) block() else this

@@ -1,91 +1,149 @@
 package com.qxy.module.rank.ui.rankversion
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.qxy.lib.base.ext.trueHeight
-import com.qxy.lib.base.util.args
+import com.qxy.lib.base.ext.log
+import com.qxy.lib.base.ext.observe
+import com.qxy.lib.base.util.toJson
+import com.qxy.lib.common.network.processView
 import com.qxy.module.rank.R
+import com.qxy.module.rank.data.model.RankVersionItem
+import com.qxy.module.rank.databinding.FragmentDialogVersionSelectedBinding
+import com.qxy.module.rank.ui.ranklist.RankListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RankVersionDialogFragment private constructor() : BottomSheetDialogFragment() {
 
     private var mSelectedVersion = 0
+    private var mDataLength = 0
+    private var isInitView = false
 
-    private var type: Int by args()
+    private val viewModel: RankListViewModel by viewModels({ requireParentFragment() })
+
+    private var _binding: FragmentDialogVersionSelectedBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var mAdapter: RankVersionListAdapter
+
+    private val onItemClickListener = { v: View ->
+        val position = binding.rankVersionRv.getChildAdapterPosition(v)
+        binding.rankVersionRv.smoothScrollToPosition(position)
+    }
+
+    private val onItemSelectedListener = { position: Int ->
+        mSelectedVersion = position
+    }
+
+    private val onItemViewInitListener = { itemView: View ->
+        setupRecyclerView(itemView)
+    }
+
+    override fun getTheme() = R.style.BottomSheetDialogTheme
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return BottomSheetDialog(requireContext(), theme)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_dialog_version_selected, container, false)
-        view.visibility = View.INVISIBLE
-        setStyle(STYLE_NORMAL, R.style.BottomSheetDialog)
-        return view
+    ): View {
+        _binding = FragmentDialogVersionSelectedBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recycler = view.findViewById<RecyclerView>(R.id.rank_bottom_rv)
-        val selectedBg = view.findViewById<View>(R.id.rank_bottom_selected)
-        val cancel = view.findViewById<TextView>(R.id.rank_bottom_tv_cancel)
-        val confirm = view.findViewById<TextView>(R.id.rank_bottom_tv_confirm)
+        initData()
+    }
 
-        val onItemClickListener = { v: View ->
-            val position = recycler.getChildLayoutPosition(v)
-            recycler.smoothScrollToPosition(position)
-        }
-
-        val onItemSelectedListener = { position: Int ->
-            mSelectedVersion = position
-        }
-
-        recycler.layoutManager = SlideLayoutManager(requireActivity(), onItemSelectedListener)
-        recycler.adapter = VersionSelectedPagedAdapter(onItemClickListener)
-        recycler.post {
-            view.visibility = View.VISIBLE
-//            TODO if (data.size < COUNT_IN_SCREEN) return@post
-            val itemView = recycler.getChildAt(0)
-            itemView?.let {
-                val itemHeight = it.trueHeight
-
-                // 动态改变RecyclerView高度，但是会在加载布局时闪一下
-                val recyclerHeight = itemHeight * COUNT_IN_SCREEN
-//                val layoutParams = recycler.layoutParams
-//                layoutParams.height = recyclerHeight
-//                recycler.layoutParams = layoutParams
-
-                // 让第一个和最后一个数据居中
-                val padding = (recyclerHeight - itemHeight) / 2
-                recycler.setPadding(0, padding, 0, padding)
-                recycler.scrollToPosition(0)
-
-                // 动态设置选择框高度
-//                val selectedBgLp = selectedBg.layoutParams as FrameLayout.LayoutParams
-//                selectedBgLp.height = itemHeight
-//                selectedBg.layoutParams = selectedBgLp
+    private fun initData() {
+        observe(viewModel.versionListData) { result ->
+            result.processView(
+                binding.rankVersionPageLoading.root,
+                binding.rankVersionPageLoadError.root,
+                binding.rankVersionContent
+            ) {
+                initViewOnce()
+                val versionLists = it.map { rankVersion ->
+                    rankVersion.versionList ?: emptyList()
+                }.flatten()
+                val newList = listOf(mAdapter.currentList, versionLists).flatten()
+                mAdapter.submitList(newList)
+                if (mDataLength != 0) binding.rankVersionRv.scrollToPosition(mDataLength - 1)
+                mDataLength = newList.size
+                log { "mDataLength:$mDataLength" }
             }
         }
+    }
+
+    private fun initViewOnce() {
+        if (isInitView) return
+        val layoutManager = SlideLayoutManager(requireActivity(), onItemSelectedListener)
+        binding.rankVersionRv.layoutManager = layoutManager
+        binding.rankVersionRv.isNestedScrollingEnabled = false
+        binding.rankVersionRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+//                log { "lastPos:${layoutManager.findLastVisibleItemPosition()} mDataLength:$mDataLength" }
+                if (layoutManager.findLastVisibleItemPosition() == mDataLength - 2) {
+                    viewModel.fetchMoreVersionData(isRefresh = false)
+                }
+            }
+        })
+        mAdapter = RankVersionListAdapter(
+            onItemClickListener, onItemViewInitListener
+        ).apply { submitList(listOf(RankVersionItem.empty())) }
+        binding.rankVersionRv.adapter = mAdapter
 
         val behavior = (dialog as BottomSheetDialog).behavior
         behavior.isDraggable = false
 
-        confirm.setOnClickListener {
+        binding.rankVersionTvConfirm.setOnClickListener {
             setFragmentResult(
                 REQUEST_KEY_VERSION,
-                bundleOf(RESULT_VERSION_SELECTED to mSelectedVersion)
+                bundleOf(
+                    RESULT_VERSION_SELECTED to
+                            if (mSelectedVersion < 0)
+                                null
+                            else
+                                mAdapter.getSelectedVersionItem(mSelectedVersion).toJson()
+                )
             )
             dismiss()
         }
-        cancel.setOnClickListener {
+        binding.rankVersionTvCancel.setOnClickListener {
             dismiss()
+        }
+        isInitView = true
+    }
+
+    private var isItemViewInit = false
+    private fun setupRecyclerView(itemView: View) {
+        if (isItemViewInit) return
+        isItemViewInit = true
+        itemView.post {
+            val itemHeight = itemView.height
+
+            // 让第一个和最后一个数据居中
+            val padding = (binding.rankVersionRv.height - itemHeight) / 2
+            binding.rankVersionRv.setPadding(0, padding, 0, padding)
+            binding.rankVersionRv.scrollToPosition(0)
+            // 动态设置选择框高度
+            val selectedBgLp = binding.rankVersionSelected.layoutParams as FrameLayout.LayoutParams
+            selectedBgLp.topMargin = padding
+            binding.rankVersionSelected.layoutParams = selectedBgLp
         }
     }
 
@@ -93,10 +151,7 @@ class RankVersionDialogFragment private constructor() : BottomSheetDialogFragmen
         const val TAG = "ModalBottomSheet"
         const val REQUEST_KEY_VERSION = "VersionRequestKey"
         const val RESULT_VERSION_SELECTED = "VersionSelected"
-        private const val COUNT_IN_SCREEN = 3
 
-        fun newInstance(type: Int) = RankVersionDialogFragment().apply {
-            this.type = type
-        }
+        fun newInstance() = RankVersionDialogFragment()
     }
 }

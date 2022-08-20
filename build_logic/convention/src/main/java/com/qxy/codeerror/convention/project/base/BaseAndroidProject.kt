@@ -118,6 +118,7 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
 
         (this as ExtensionAware).extensions.configure<KotlinJvmOptions> {
             jvmTarget = "1.8"
+            freeCompilerArgs = listOf(*freeCompilerArgs.toTypedArray(), "-Xopt-in=kotlin.RequiresOptIn")
         }
 
         lint {

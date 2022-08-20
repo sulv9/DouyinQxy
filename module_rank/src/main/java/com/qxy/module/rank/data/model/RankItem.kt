@@ -48,6 +48,7 @@ data class RankItem(
     val topicHot: Long, // 话题热度值
     val type: Int, // 类型：1=电影 2=电视剧 3=综艺
     val version: Int?,
+    val activeTime: String?,
 )
 
 class StringListConverter {
