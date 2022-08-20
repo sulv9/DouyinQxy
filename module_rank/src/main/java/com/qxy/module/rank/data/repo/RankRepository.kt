@@ -189,7 +189,7 @@ class RankLocalDataSource @Inject constructor(
     }
 
     fun getRankVersionStream(type: Int): Flow<List<RankVersion>> {
-        return db.rankVersionDao().observeRankVersionList(type)
+        return db.rankVersionDao().observeRankVersionListUntilChanged(type)
     }
 
 }
