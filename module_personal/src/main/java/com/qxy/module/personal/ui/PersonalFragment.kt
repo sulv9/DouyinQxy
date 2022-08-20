@@ -11,6 +11,7 @@ import com.qxy.module.personal.viewmodel.PersonalViewModel
 @Route(path = RouteTable.PERSONAL_ENTRY)
 class PersonalFragment : BaseVmBindFragment<PersonalViewModel, FragmentPersonalBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
     }
 }

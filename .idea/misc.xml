@@ -26,21 +26,28 @@
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/layout/activity_personal.xml" value="0.25885416666666666" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/layout/fragment_personal.xml" value="0.2578125" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/drawable/selector_rank_btn_buy_ticket.xml" value="0.1125" />
-        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/drawable/shape_bg_bottom_sheet.xml" value="0.293" />
-        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/drawable/shape_bg_rank_bottom_selected.xml" value="0.3095" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/drawable/shape_rank_btn_buy_ticket_normal.xml" value="0.1125" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/drawable/shape_rank_btn_buy_ticket_pressed.xml" value="0.1015" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/activity_rank.xml" value="0.4088541666666667" />
-        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/fragment_dialog_version_selected.xml" value="0.2871536523929471" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/fragment_rank.xml" value="0.1" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/fragment_rank_list.xml" value="0.2" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/fragment_rank_test.xml" value="0.21875" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/item_recycler_rank.xml" value="0.2" />
-        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/layout/item_recycler_rank_bottom.xml" value="0.4078125" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_personal/src/main/res/drawable/shape_gender_and_school.xml" value="0.136" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_personal/src/main/res/layout/fragment_personal.xml" value="0.132" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_rank/src/main/res/drawable/shape_bg_bottom_sheet.xml" value="0.137" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_rank/src/main/res/drawable/shape_bg_rank_bottom_selected.xml" value="0.137" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_rank/src/main/res/drawable/shape_rank_btn_buy_ticket_normal.xml" value="0.137" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_rank/src/main/res/drawable/shape_rank_btn_buy_ticket_pressed.xml" value="0.137" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_rank/src/main/res/layout/fragment_dialog_version_selected.xml" value="0.3" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_rank/src/main/res/layout/fragment_rank.xml" value="0.1" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_rank/src/main/res/layout/fragment_rank_list.xml" value="0.1265625" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_rank/src/main/res/layout/item_recycler_rank.xml" value="0.1265625" />
+        <entry key="..\:/Users/wrzg8/AndroidStudioProjects/DouyinQxy/module_rank/src/main/res/layout/item_recycler_rank_version.xml" value="0.1265625" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
