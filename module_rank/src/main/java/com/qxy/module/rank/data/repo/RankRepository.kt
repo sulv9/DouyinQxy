@@ -1,6 +1,5 @@
 package com.qxy.module.rank.data.repo
 
-import androidx.paging.*
 import androidx.room.withTransaction
 import com.qxy.api.account.IAccountService
 import com.qxy.lib.base.base.network.Errors
