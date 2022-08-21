@@ -27,7 +27,10 @@
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/drawable/ic_baseline_male_24.xml" value="0.174" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/drawable/shape_personal_iv_avatar.xml" value="0.174" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/layout/activity_personal.xml" value="0.25885416666666666" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/layout/activity_personal_fan.xml" value="0.264" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/layout/fragment_personal.xml" value="0.2578125" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/layout/fragment_personal_fan.xml" value="0.25885416666666666" />
+        <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/layout/fragment_personal_follow.xml" value="0.7890625" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_personal/src/main/res/xml/styles.xml" value="0.25885416666666666" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/drawable/selector_rank_btn_buy_ticket.xml" value="0.1125" />
         <entry key="..\:/Android/KotlinProject/DouyinQxy/module_rank/src/main/res/drawable/shape_bg_bottom_sheet.xml" value="0.293" />

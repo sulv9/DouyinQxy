@@ -40,7 +40,8 @@
         app:tabGravity="fill"
         app:tabIndicatorAnimationMode="elastic"
         app:tabIndicatorFullWidth="false"
-        app:tabMode="fixed" />
+        app:tabMode="fixed"
+        app:tabIndicator="@drawable/common_layer_tab_indicator"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/rank_vp"
