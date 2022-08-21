@@ -13,9 +13,16 @@ import javax.inject.Inject
 class PersonalViewModel @Inject constructor(
     private val repo: PersonalRepository
 ) : BaseViewModel() {
+    private var isInitialized = false
 
     private val _personal = MutableStateFlow<Results<PersonalInfo>>(Results.Loading)
     val personal = _personal.asStateFlow()
+
+    fun initialize() {
+        if (isInitialized) return
+        collectPersonalInfo()
+        isInitialized = true
+    }
 
     fun collectPersonalInfo() {
         repo.getPersonalInfo().launchCollect {
