@@ -14,6 +14,7 @@ import com.qxy.lib.base.BuildConfig
 import com.qxy.lib.base.base.repository.BaseRepositoryBoth
 import com.qxy.lib.base.base.repository.ILocalDataSource
 import com.qxy.lib.base.base.repository.IRemoteDataSource
+import com.qxy.lib.base.ext.log
 import com.qxy.lib.base.util.fromJson
 import com.qxy.lib.base.util.toJson
 import com.qxy.lib.common.network.processApiResponse
@@ -34,6 +35,7 @@ class AccountRepository @Inject constructor(
 ) {
 
     suspend fun getClientToken(): String {
+        log { "accessToken: ${localDataSource.localAccessToken}" }
         val localClientToken = localDataSource.localClientToken
         localClientToken?.let {
             if (!isTokenExpire(it.responseTime, it.expiresIn)) return it.accessToken
@@ -113,6 +115,7 @@ class AccountLocalDataSource @Inject constructor(
     @set:JvmName("saveLocalClientToken")
     var localClientToken: ClientToken?
         get() {
+//            secureSharedPref.edit { putString(KEY_CLIENT_TOKEN, null) }
             return secureSharedPref.getString(KEY_CLIENT_TOKEN, null)?.fromJson()
         }
         set(value) {

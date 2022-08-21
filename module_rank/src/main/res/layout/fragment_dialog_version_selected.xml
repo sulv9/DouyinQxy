@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/shape_bg_bottom_sheet">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/rank_bottom_tv_cancel"
+        android:id="@+id/rank_version_tv_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -20,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/rank_bottom_tv_confirm"
+        android:id="@+id/rank_version_tv_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -34,25 +32,47 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="240dp"
         android:layout_marginTop="18dp"
-        app:layout_constraintTop_toBottomOf="@+id/rank_bottom_tv_cancel">
+        app:layout_constraintTop_toBottomOf="@+id/rank_version_tv_cancel">
 
-        <View
-            android:id="@+id/rank_bottom_selected"
+        <include
+            android:id="@+id/rank_version_page_loading"
+            layout="@layout/common_page_loading"
             android:layout_width="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_height="74dp"
-            android:layout_marginTop="74dp"
-            android:background="@drawable/shape_bg_rank_bottom_selected" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rank_bottom_rv"
+        <include
+            android:id="@+id/rank_version_page_load_error"
+            layout="@layout/common_page_load_error"
             android:layout_width="match_parent"
-            android:layout_height="224dp"
-            android:clipToPadding="false"
-            tools:listitem="@layout/item_recycler_rank_version" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/rank_version_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <View
+                android:id="@+id/rank_version_selected"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/shape_bg_rank_bottom_selected" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rank_version_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_recycler_rank_version" />
+
+        </FrameLayout>
 
     </FrameLayout>
 

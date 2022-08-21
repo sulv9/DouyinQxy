@@ -1,8 +1,11 @@
 package com.qxy.module.rank.ui.rankversion
 
 import android.content.Context
+import android.graphics.PointF
+import android.util.DisplayMetrics
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
@@ -57,6 +60,21 @@ class SlideLayoutManager(
     ): Int {
         setupView()
         return super.scrollVerticallyBy(dy, recycler, state)
+    }
+
+    override fun smoothScrollToPosition(
+        recyclerView: RecyclerView,
+        state: RecyclerView.State?,
+        position: Int
+    ) {
+        val linearSmoothScroller = object : LinearSmoothScroller(recyclerView.context) {
+            override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
+                // 让滑动速度变慢为原来的三倍
+                return super.calculateSpeedPerPixel(displayMetrics) * 3
+            }
+        }.apply { targetPosition = position }
+        setupView()
+        startSmoothScroll(linearSmoothScroller)
     }
 
     private fun setupView() {

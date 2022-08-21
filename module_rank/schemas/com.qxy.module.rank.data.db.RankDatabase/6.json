@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 3,
-    "identityHash": "91be3858f44808eb4e861512418a407e",
+    "version": 6,
+    "identityHash": "26aed6af00002026e863d7b6773a9d7b",
     "entities": [
       {
         "tableName": "rank_item",
@@ -128,11 +128,11 @@
       },
       {
         "tableName": "rank_version",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`next_cursor` INTEGER NOT NULL, `has_more` INTEGER, `list` TEXT, `type` INTEGER NOT NULL, `errorCode` INTEGER NOT NULL, `errorMsg` TEXT NOT NULL, PRIMARY KEY(`type`, `next_cursor`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cursor` INTEGER NOT NULL, `has_more` INTEGER, `list` TEXT, `type` INTEGER NOT NULL, PRIMARY KEY(`type`, `cursor`))",
         "fields": [
           {
-            "fieldPath": "nextCursor",
-            "columnName": "next_cursor",
+            "fieldPath": "cursor",
+            "columnName": "cursor",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -153,69 +153,12 @@
             "columnName": "type",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "errorCode",
-            "columnName": "errorCode",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "errorMsg",
-            "columnName": "errorMsg",
-            "affinity": "TEXT",
-            "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
             "type",
-            "next_cursor"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "rank_version_item",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`active_time` TEXT NOT NULL, `end_time` TEXT NOT NULL, `start_time` TEXT NOT NULL, `type` INTEGER NOT NULL, `version` INTEGER NOT NULL, PRIMARY KEY(`type`, `version`))",
-        "fields": [
-          {
-            "fieldPath": "activeTime",
-            "columnName": "active_time",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "endTime",
-            "columnName": "end_time",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "startTime",
-            "columnName": "start_time",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "type",
-            "columnName": "type",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "version",
-            "columnName": "version",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "type",
-            "version"
+            "cursor"
           ],
           "autoGenerate": false
         },
@@ -226,7 +169,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '91be3858f44808eb4e861512418a407e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '26aed6af00002026e863d7b6773a9d7b')"
     ]
   }
 }

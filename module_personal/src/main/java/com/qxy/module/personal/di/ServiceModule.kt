@@ -1,6 +1,6 @@
 package com.qxy.module.personal.di
 
-import com.qxy.module.personal.service.PersonalService
+import com.qxy.module.personal.data.api.PersonalService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
