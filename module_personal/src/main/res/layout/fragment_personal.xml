@@ -2,34 +2,48 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/personal_cl_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/personal_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:background="@color/white"
+            android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleEnabled="false"
-            android:background="@color/white">
+            app:titleEnabled="false">
+
+            <ImageView
+                android:id="@+id/personal_iv_top_bg"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/bg_personal_top_bg"
+                android:contentDescription="@null"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/bg_personal_top_bg"
+                app:layout_collapseMode="pin"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                android:background="@drawable/shape_bg_personal_top_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingBottom="12dp"
                 app:layout_collapseMode="parallax">
-
-                <ImageView
-                    android:id="@+id/personal_iv_top_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:contentDescription="@null"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:background="@color/gray_300" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/personal_iv_user_avatar"
@@ -40,7 +54,7 @@
                     android:contentDescription="@null"
                     android:padding="3dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/personal_iv_top_bg"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearance="@style/CircleStyle"
                     app:strokeColor="@color/white"
                     app:strokeWidth="5dp"
@@ -55,13 +69,14 @@
                     android:text="@string/personal_tv_text_fans"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/personal_iv_top_bg" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/personal_tv_fans_data"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:text="4"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -97,13 +112,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:text="1024"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@id/personal_tv_follow_info"
                     app:layout_constraintStart_toStartOf="@id/personal_tv_follow_info"
                     app:layout_constraintTop_toBottomOf="@id/personal_tv_follow_info"
-                    tools:text="1052" />
+                    tools:text="1024" />
 
                 <View
                     android:id="@+id/personal_divider_up_and_follow"
@@ -132,6 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -162,6 +179,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="16dp"
+                    android:text="抖音号：1145141919810"
                     android:textSize="12sp"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintStart_toStartOf="parent"
@@ -185,7 +203,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    android:textSize="16sp"
+                    android:text="你好，世界。"
+                    android:textSize="15sp"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/personal_divider_num_and_desc"
@@ -199,6 +218,8 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/shape_gender_and_school"
                     android:padding="4dp"
+                    android:text="♂ 33岁"
+                    android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/personal_tv_desc"
                     tools:text="♂ 33岁" />
@@ -211,9 +232,11 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/shape_gender_and_school"
                     android:padding="4dp"
+                    android:text="重庆邮电大学"
+                    android:textSize="13sp"
                     app:layout_constraintStart_toEndOf="@id/tv_gender"
                     app:layout_constraintTop_toBottomOf="@id/personal_tv_desc"
-                    tools:text="重庆邮电学院" />
+                    tools:text="重庆邮电大学" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -221,7 +244,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                android:fitsSystemWindows="true"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
