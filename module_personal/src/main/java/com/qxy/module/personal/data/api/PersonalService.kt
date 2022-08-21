@@ -1,8 +1,11 @@
-package com.qxy.module.personal.service
+package com.qxy.module.personal.data.api
 
 import com.qxy.lib.common.network.ApiResponse
-import com.qxy.module.personal.model.PersonalInfo
-import retrofit2.http.*
+import com.qxy.module.personal.data.model.PersonalInfo
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
+import retrofit2.http.Query
 
 
 /**
@@ -11,12 +14,11 @@ import retrofit2.http.*
  * @time 2022/08/20 020 17:56
  */
 interface PersonalService {
-    @POST("oauth/userinfo")
-    @FormUrlEncoded
+    @GET("oauth/userinfo")
     @Headers("Content-Type: application/json")
     suspend fun getPersonalInfo(
-        @Field("access_token") accessToken: String,
-        @Field("open_id") openID: String,
+        @Query("access_token") accessToken: String,
+        @Query("open_id") openID: String,
         @Header("access-token") accessTokenHeader: String = accessToken
     ): ApiResponse<PersonalInfo>
 }
