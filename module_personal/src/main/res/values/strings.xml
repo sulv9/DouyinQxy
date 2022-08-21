@@ -4,4 +4,10 @@
     <string name="personal_tv_text_upvote">获赞</string>
     <string name="personal_string_follow">关注</string>
     <string name="personal_string_fans">粉丝</string>
+    <string name="personal_et_hint_text_search">搜索用户备注或名字</string>
+    <string name="personal_fan_item_btn_content_desc_more">更多</string>
+    <string name="personal_follow_item_btn_content_desc_delete">删除</string>
+    <string name="personal_following_item_tv_text_has_followed">已关注</string>
+    <string name="personal_fan_item_tv_text_has_followed">互相关注</string>
+    <string name="personal_fan_item_tv_text_not_followed">回关</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.qxy.module.personal.ui.fan
+package com.qxy.module.personal.ui.fanfollow
 
 import android.content.Context
 import android.content.Intent
@@ -8,11 +8,13 @@ import com.qxy.lib.base.base.view.activity.BaseBindActivity
 import com.qxy.lib.base.base.view.adapter.SimpleViewPagerAdapter
 import com.qxy.lib.base.ext.setLightStatusBar
 import com.qxy.module.personal.R
-import com.qxy.module.personal.databinding.ActivityPersonalFanBinding
+import com.qxy.module.personal.databinding.ActivityPersonalFanFollowBinding
+import com.qxy.module.personal.ui.fanfollow.fan.PersonalFanFragment
+import com.qxy.module.personal.ui.fanfollow.follow.PersonalFollowFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PersonalFanActivity : BaseBindActivity<ActivityPersonalFanBinding>() {
+class PersonalFanFollowActivity : BaseBindActivity<ActivityPersonalFanFollowBinding>() {
     private val pages by lazy {
         mapOf(
             0 to getString(R.string.personal_string_follow),
@@ -24,8 +26,8 @@ class PersonalFanActivity : BaseBindActivity<ActivityPersonalFanBinding>() {
         setupStatusBar()
         binding.personalFanVp.adapter = SimpleViewPagerAdapter(supportFragmentManager, lifecycle)
             .apply {
-                add { PersonalFanFragment.newInstance() }
                 add { PersonalFollowFragment.newInstance() }
+                add { PersonalFanFragment.newInstance() }
             }
         TabLayoutMediator(binding.personalFanTl, binding.personalFanVp) { tab, position ->
             tab.text = pages[position]
@@ -34,7 +36,7 @@ class PersonalFanActivity : BaseBindActivity<ActivityPersonalFanBinding>() {
     }
 
     override fun initData() {
-        when(intent.extras?.getInt(KEY_PERSONAL_FAN_EXTRAS) ?: 0) {
+        when (intent.extras?.getInt(KEY_PERSONAL_FAN_EXTRAS) ?: 0) {
             0 -> binding.personalFanVp.setCurrentItem(0, false)
             1 -> binding.personalFanVp.setCurrentItem(1, false)
         }
@@ -49,7 +51,7 @@ class PersonalFanActivity : BaseBindActivity<ActivityPersonalFanBinding>() {
 
     companion object {
         private const val KEY_PERSONAL_FAN_EXTRAS = "key_personal_fan_extras"
-        fun startFanActivity(context: Context, type: Int) {
+        fun startFanFollowActivity(context: Context, type: Int) {
             context.startActivity(Intent(context, this::class.java).apply {
                 putExtra(KEY_PERSONAL_FAN_EXTRAS, type)
             })
