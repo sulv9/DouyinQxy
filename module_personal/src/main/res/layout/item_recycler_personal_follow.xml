@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/personal_follow_item_iv_avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:padding="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CircleStyle"
+        app:strokeColor="@color/gray_300"
+        app:strokeWidth="2dp"
+        tools:src="@drawable/common_ic_tiktok" />
+
+    <TextView
+        android:id="@+id/personal_follow_item_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/personal_follow_item_iv_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="闲不住的阿俊" />
+
+    <ImageButton
+        android:id="@+id/personal_follow_item_btn_more"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/personal_fan_item_btn_content_desc_more"
+        android:src="@drawable/ic_personal_follow_more"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/personal_follow_item_tv_follow"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/common_selector_view_with_gray_border"
+        android:gravity="center"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:text="@string/personal_following_item_tv_text_has_followed"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/personal_follow_item_btn_more"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

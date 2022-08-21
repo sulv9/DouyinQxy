@@ -17,7 +17,7 @@ import com.qxy.lib.base.base.view.fragment.BaseVmBindFragment
 import com.qxy.lib.base.ext.toast
 import com.qxy.lib.common.config.RouteTable
 import com.qxy.module.personal.databinding.FragmentPersonalBinding
-import com.qxy.module.personal.ui.fan.PersonalFanActivity
+import com.qxy.module.personal.ui.fanfollow.PersonalFanFollowActivity
 import kotlinx.coroutines.flow.collectLatest
 
 @Route(path = RouteTable.PERSONAL_ENTRY)
@@ -32,16 +32,16 @@ class PersonalFragment : BaseVmBindFragment<PersonalViewModel, FragmentPersonalB
 
     private fun initView() {
         binding.personalTvFansInfo.setOnClickListener {
-            PersonalFanActivity.startFanActivity(requireActivity(), 0)
+            PersonalFanFollowActivity.startFanFollowActivity(requireActivity(), 0)
         }
         binding.personalTvFansData.setOnClickListener {
-            PersonalFanActivity.startFanActivity(requireActivity(), 0)
+            PersonalFanFollowActivity.startFanFollowActivity(requireActivity(), 0)
         }
         binding.personalTvFollowInfo.setOnClickListener {
-            PersonalFanActivity.startFanActivity(requireActivity(), 1)
+            PersonalFanFollowActivity.startFanFollowActivity(requireActivity(), 1)
         }
         binding.personalTvFollowData.setOnClickListener {
-            PersonalFanActivity.startFanActivity(requireActivity(), 1)
+            PersonalFanFollowActivity.startFanFollowActivity(requireActivity(), 1)
         }
         binding.vpPersonal.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount() = tabName.size

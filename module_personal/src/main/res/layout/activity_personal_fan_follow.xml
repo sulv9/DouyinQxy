@@ -26,11 +26,18 @@
         app:tabIndicatorFullWidth="false"
         app:tabMode="fixed" />
 
+    <View
+        android:id="@+id/personal_fan_divider_below_tl"
+        android:layout_width="match_parent"
+        android:layout_height="0.9dp"
+        android:background="@color/gray_100"
+        app:layout_constraintTop_toBottomOf="@id/personal_fan_tl" />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/personal_fan_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/personal_fan_tl" />
+        app:layout_constraintTop_toBottomOf="@id/personal_fan_divider_below_tl" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,21 +6,20 @@ import com.qxy.lib.base.util.fromJsonList
 import com.qxy.lib.base.util.toJsonList
 import com.qxy.lib.common.network.ApiStatus
 
-@Entity(tableName = "personal_fan")
-@TypeConverters(PersonalFanListConverter::class)
-data class PersonalFan(
-    val total: Int,
+@Entity(tableName = "personal_fan_following")
+@TypeConverters(PersonalFanFollowingListConverter::class)
+data class PersonalFanFollowing(
+    val total: Int?,
     @PrimaryKey
-    val cursor: Int = Integer.MAX_VALUE, // 下一页的Cursor
+    val cursor: Long = Long.MAX_VALUE, // 下一页的Cursor
     @SerializedName("has_more")
     @ColumnInfo(name = "has_more")
     val hasMore: Boolean?,
-    @SerializedName("list")
-    @ColumnInfo(name = "list")
-    val versionList: List<PersonalFanItem>?,
+    val list: List<PersonalFanFollowingItem>?,
+    val type: Int = -1,
 ) : ApiStatus()
 
-data class PersonalFanItem(
+data class PersonalFanFollowingItem(
     @SerializedName("open_id")
     val openId: Int,
     @SerializedName("union_id")
@@ -34,10 +33,10 @@ data class PersonalFanItem(
     val gender: Int,
 )
 
-class PersonalFanListConverter {
+class PersonalFanFollowingListConverter {
     @TypeConverter
-    fun fanListToString(data: List<PersonalFanItem>?): String = data?.toJsonList() ?: ""
+    fun fanListToString(data: List<PersonalFanFollowingItem>?): String = data?.toJsonList() ?: ""
 
     @TypeConverter
-    fun stringToFanList(value: String): List<PersonalFanItem>? = value.fromJsonList()
+    fun stringToFanList(value: String): List<PersonalFanFollowingItem>? = value.fromJsonList()
 }
