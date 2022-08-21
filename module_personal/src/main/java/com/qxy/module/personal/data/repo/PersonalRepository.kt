@@ -1,4 +1,4 @@
-package com.qxy.module.personal.repo
+package com.qxy.module.personal.data.repo
 
 import androidx.core.content.edit
 import com.qxy.api.account.IAccountService
@@ -12,8 +12,8 @@ import com.qxy.lib.base.util.fromJson
 import com.qxy.lib.base.util.toJson
 import com.qxy.lib.common.network.processApiResponse
 import com.qxy.module.personal.KEY_PERSONAL_INFO
-import com.qxy.module.personal.model.PersonalInfo
-import com.qxy.module.personal.service.PersonalService
+import com.qxy.module.personal.data.model.PersonalInfo
+import com.qxy.module.personal.data.api.PersonalService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flow
@@ -39,7 +39,7 @@ class PersonalRepository @Inject constructor(
             localDataSource.localPersonalInfo?.let {
                 val localData = processResults { it }
                 emit(localData)
-            } ?: emit(Results.none())
+            } ?: emit(Results.None)
         }
         val remoteFlow = flow {
             val accessToken = service.getAccessToken()
