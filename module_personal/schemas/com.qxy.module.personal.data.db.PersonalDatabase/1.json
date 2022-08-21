@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "a55f3c9b91f27b6d061cf5f68bd5f411",
+    "entities": [
+      {
+        "tableName": "personal_fan_following",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`total` INTEGER, `cursor` INTEGER NOT NULL, `has_more` INTEGER, `list` TEXT, `type` INTEGER NOT NULL, PRIMARY KEY(`cursor`))",
+        "fields": [
+          {
+            "fieldPath": "total",
+            "columnName": "total",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cursor",
+            "columnName": "cursor",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasMore",
+            "columnName": "has_more",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "list",
+            "columnName": "list",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "cursor"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a55f3c9b91f27b6d061cf5f68bd5f411')"
+    ]
+  }
+}
