@@ -14,10 +14,8 @@ import com.qxy.lib.common.network.processApiResponse
 import com.qxy.module.personal.KEY_PERSONAL_INFO
 import com.qxy.module.personal.data.model.PersonalInfo
 import com.qxy.module.personal.data.api.PersonalService
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flattenMerge
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /**
@@ -32,8 +30,6 @@ class PersonalRepository @Inject constructor(
     remoteDataSource,
     localDataSource
 ) {
-    private val service = ARouterUtil.getService(IAccountService::class)
-
     suspend fun getPersonalInfo(): Flow<Results<PersonalInfo>> {
         val localFlow = flow {
             localDataSource.localPersonalInfo?.let {
@@ -42,15 +38,18 @@ class PersonalRepository @Inject constructor(
             } ?: emit(Results.None)
         }
         val remoteFlow = flow {
-            val accessToken = service.getAccessToken()
+            val accessToken = remoteDataSource.getAccessToken()
             val remoteData = processResults {
-                remoteDataSource.getRemotePersonalInfo(accessToken, service.openID).also {
-                    localDataSource.localPersonalInfo = it
-                }
+                remoteDataSource.getRemotePersonalInfo(accessToken, remoteDataSource.getOpenId())
+                    .also {
+                        localDataSource.localPersonalInfo = it
+                    }
             }
             emit(remoteData)
         }
-        return flowOf(localFlow, remoteFlow).flattenMerge()
+        return flowOf(localFlow, remoteFlow)
+            .flattenMerge()
+            .flowOn(Dispatchers.IO)
     }
 }
 
@@ -73,9 +72,15 @@ class PersonalLocalDataSource @Inject constructor() : ILocalDataSource {
 class PersonalRemoteDataSource @Inject constructor(
     private val personalService: PersonalService
 ) : IRemoteDataSource {
+    private val service = ARouterUtil.getService(IAccountService::class)
+
     suspend fun getRemotePersonalInfo(accessToken: String, openID: String): PersonalInfo {
         return processApiResponse {
             personalService.getPersonalInfo(accessToken, openID)
         }
     }
+
+    suspend fun getAccessToken() = service.getAccessToken()
+
+    fun getOpenId() = service.openID
 }

@@ -6,11 +6,26 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.qxy.lib.base.base.view.fragment.BaseVmBindFragment
 import com.qxy.lib.common.config.RouteTable
 import com.qxy.module.personal.databinding.FragmentPersonalBinding
+import com.qxy.module.personal.ui.fan.PersonalFanActivity
 
 @Route(path = RouteTable.PERSONAL_ENTRY)
 class PersonalFragment : BaseVmBindFragment<PersonalViewModel, FragmentPersonalBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
 
+    private fun initView() {
+        binding.personalTvFansInfo.setOnClickListener {
+            PersonalFanActivity.startFanActivity(requireActivity(), 0)
+        }
+        binding.personalTvFansData.setOnClickListener {
+            PersonalFanActivity.startFanActivity(requireActivity(), 0)
+        }
+        binding.personalTvFollowInfo.setOnClickListener {
+            PersonalFanActivity.startFanActivity(requireActivity(), 1)
+        }
+        binding.personalTvFollowData.setOnClickListener {
+            PersonalFanActivity.startFanActivity(requireActivity(), 1)
+        }
     }
 }

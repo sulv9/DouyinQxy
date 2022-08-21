@@ -1,5 +1,6 @@
 package com.qxy.module.personal.di
 
+import com.qxy.module.personal.data.api.PersonalFanService
 import com.qxy.module.personal.data.api.PersonalService
 import dagger.Module
 import dagger.Provides
@@ -20,6 +21,12 @@ object ServiceModule {
     @Provides
     @Singleton
     fun providePersonalService(retrofit: Retrofit): PersonalService {
+        return retrofit.create()
+    }
+
+    @Provides
+    @Singleton
+    fun providePersonalFanService(retrofit: Retrofit): PersonalFanService {
         return retrofit.create()
     }
 }
