@@ -16,7 +16,7 @@ data class PersonalInfo(
     @SerializedName("e_account_role")
     val eAccountRole: String,
 
-    val gender: String,
+    val gender: Int,
     val nickname: String,
 
     @SerializedName("open_id")

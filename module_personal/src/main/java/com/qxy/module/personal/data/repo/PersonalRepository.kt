@@ -14,6 +14,7 @@ import com.qxy.lib.common.network.processApiResponse
 import com.qxy.module.personal.KEY_PERSONAL_INFO
 import com.qxy.module.personal.data.model.PersonalInfo
 import com.qxy.module.personal.data.api.PersonalService
+import com.qxy.module.personal.data.model.PersonalVideo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class PersonalRepository @Inject constructor(
     remoteDataSource,
     localDataSource
 ) {
-    suspend fun getPersonalInfo(): Flow<Results<PersonalInfo>> {
+    fun getPersonalInfo(): Flow<Results<PersonalInfo>> {
         val localFlow = flow {
             localDataSource.localPersonalInfo?.let {
                 val localData = processResults { it }
@@ -50,6 +51,19 @@ class PersonalRepository @Inject constructor(
         return flowOf(localFlow, remoteFlow)
             .flattenMerge()
             .flowOn(Dispatchers.IO)
+    }
+
+    fun getPersonalVideo(cursor: Int, count: Int): Flow<Results<PersonalVideo>> {
+        return flow {
+            val result = processResults {
+                remoteDataSource.getRemotePersonalVideo(
+                    remoteDataSource.getOpenId(),
+                    cursor, count,
+                    remoteDataSource.getAccessToken()
+                )
+            }
+            emit(result)
+        }.flowOn(Dispatchers.IO)
     }
 }
 
@@ -78,6 +92,15 @@ class PersonalRemoteDataSource @Inject constructor(
         return processApiResponse {
             personalService.getPersonalInfo(accessToken, openID)
         }
+    }
+
+    suspend fun getRemotePersonalVideo(
+        openID: String,
+        cursor: Int,
+        count: Int,
+        accessToken: String
+    ) = processApiResponse {
+        personalService.getPersonalVideo(openID, cursor, count, accessToken)
     }
 
     suspend fun getAccessToken() = service.getAccessToken()
